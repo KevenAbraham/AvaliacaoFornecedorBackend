@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebSupplyAvaliacao.Dominio.Entidade;
 
 namespace WebSupplyAvaliacao.Dados.Context
 {
@@ -15,7 +16,7 @@ namespace WebSupplyAvaliacao.Dados.Context
 
         }
 
-        //public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
         
     }
 }
