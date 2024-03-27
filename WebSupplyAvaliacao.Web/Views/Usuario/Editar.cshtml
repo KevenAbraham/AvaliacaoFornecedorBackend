@@ -1,0 +1,45 @@
+﻿@using WebSupplyAvaliacao.Dominio.Entidade
+@model Usuario
+
+<head>
+    <link rel="stylesheet" href="/css/usuarios/visualizar/editar-usuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<h2 class="title">Dados do Usuário</h2>
+<div class="line"></div>
+<form asp-controller="Usuario" asp-action="Editar" method="post">
+    <div class="box">
+        <div class="left">
+            <div class="input">
+                <div class="label">
+                    <label for="">Nome:</label>
+                </div>
+                <input asp-for="Nome" type="text" placeholder="Nome do usuário" value="@Model.Nome">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">Email:</label>
+                </div>
+                <input type="text" asp-for="Email" placeholder="Email do Usuário" value="@Model.Email">
+            </div>
+        </div>
+        <div class="right">
+            <div class="toggle-wrapper">
+                <div class="description">
+                    Status:
+                </div>
+                <label class="switch">
+                    <input asp-for="Status" type="checkbox" class="hidden-toggle" />
+                    <div class="slider">
+                        <div class="button"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <a href="/Usuario/Listar">Voltar</a>
+        <button type="submit"><i class="fas fa-save"></i>Salvar</button>
+    </div>
+</form>

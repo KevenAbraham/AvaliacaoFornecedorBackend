@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/home.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/others/sidebar.css">
     <title>Avaliação de Fornecedor</title>
@@ -36,7 +35,15 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <p><a href="usuarios/lista-usuarios.html">Usuários</a></p>
+                    <p>Usuários<span class="menu_vector">►</span></p>
+                    <ul class="sub-menu">
+                        <a href="/Usuario/Cadastrar">
+                        <li>Criar Usuário</li>
+                        </a>
+                        <a href="/Usuario/Listar">
+                        <li>Consultar Usuário</li>
+                        </a>
+                    </ul>
                 </li>
                 <li class="menu-item">
                     <p><a href="/html/indicadores/indicadores.html">Indicadores</a></p>
@@ -44,13 +51,12 @@
             </ul>
 
             <div class="buttonArea">
-                <a href="/Login/Sair"><button>Finalizar</button></a>
+                <a href="/"><button>Finalizar</button></a>
             </div>
         </nav>
 
         <section class="container">
             @RenderBody()
-            
         </section>
     </main>
 

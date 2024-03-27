@@ -30,4 +30,8 @@
     <ProjectReference Include="..\WebSupplyAvaliacao.Dominio\WebSupplyAvaliacao.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>

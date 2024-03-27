@@ -1,0 +1,65 @@
+﻿@using WebSupplyAvaliacao.Dominio.Entidade
+@model List<WebSupplyAvaliacao.Dominio.Entidade.Usuario>
+
+<head>
+    <link rel="stylesheet" href="/css/fornecedor/analysis/lista-fornecedor.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<h2 class="title">Lista de Usuários</h2>
+
+<div class="itemsCentered">
+    <table id="lista-fornecedor">
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>E-mail</td>
+                <td>Status</td>
+                <td>Editar</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Nome</td>
+                    <td>@user.Email</td>
+                    @if (@user.Status == true)
+                    {
+                        <td>Ativo</td>
+                    }
+                    else
+                    {
+                        <td>Inativo</td>
+                    }
+                    <td><a href="/Usuario/Editar/@user.ID"><i class="fas fa-pen"></i></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var table = new DataTable('#lista-fornecedor', {
+        language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese-Brasil.json" },
+        lengthMenu: [6], // Define o valor padrão de 6 sem a opção de seleção
+        paging: true,
+        searching: true,
+        ordering: false,
+        language: {
+            lengthMenu: 'Apresentar _MENU_ linhas por página',
+            zeroRecords: 'Não há Registros',
+            info: 'Página _PAGE_ de _PAGES_',
+            infoEmpty: 'Não há Registros',
+            infoFiltered: '(Filtrando de _MAX_ registros)',
+            searchPlaceholder: "Busque o usuário",
+            search: 'Pesquisar:',
+            paginate: {
+                next: '<i class="fas fa-angle-right"></i>',
+                previous: '<i class="fas fa-angle-left"></i>',
+            },
+        },
+    });
+</script>

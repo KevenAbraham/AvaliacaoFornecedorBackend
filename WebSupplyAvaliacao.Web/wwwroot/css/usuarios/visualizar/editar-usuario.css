@@ -144,9 +144,10 @@ main {
 .buttons {
     display: flex;
     justify-content: center;
+    gap: 20px;
 }
 
-.buttons button {
+.buttons button, .buttons a {
     width: 138px;
     height: 60px;
     background: var(--btnColorMain);
@@ -159,7 +160,15 @@ main {
     transition: .2s ease;
 }
 
-.buttons button:hover {
+.buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: #0154AD;
+}
+
+.buttons button:hover, .buttons a:hover {
     transform: scale(1.04);
     transition: .2s ease;
 }
