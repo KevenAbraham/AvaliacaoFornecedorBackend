@@ -12,8 +12,8 @@ public class UsuarioController : Controller
     {
         _context = context;
     }
-    
-    [HttpPost]
+
+    [HttpGet]
     public IActionResult Cadastrar()
     {
         return View();
@@ -24,6 +24,13 @@ public class UsuarioController : Controller
     {
         if (ModelState.IsValid)
         {
+            var emailExistente = _context.Usuario.Any(x => x.Email == usuario.Email);
+
+            if (emailExistente)
+            {
+                ModelState.AddModelError(string.Empty, "Este email ja esta cadastrado.");
+                return View(usuario);
+            }
             _context.Usuario.Add(usuario);
             _context.SaveChanges();
             return RedirectToAction("Confirmacao", "Usuario");
@@ -59,6 +66,5 @@ public class UsuarioController : Controller
         _context.SaveChanges();
 
         return View(usuario);
-
     }
 }
