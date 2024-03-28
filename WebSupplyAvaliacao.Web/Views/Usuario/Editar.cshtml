@@ -43,3 +43,19 @@
         <button type="submit"><i class="fas fa-save"></i>Salvar</button>
     </div>
 </form>
+
+@if (TempData["InfoMessage"] != null)
+{
+<div class="container-alert">
+    <div class="alert alert-danger">
+            @TempData["InfoMessage"]
+    </div>
+    <button onclick="reload()" type="button">Confirmar</button>
+</div>
+
+<script>
+    function reload() {
+        location.reload();
+    }
+</script>
+}

@@ -28,9 +28,10 @@ public class UsuarioController : Controller
 
             if (emailExistente)
             {
-                ModelState.AddModelError(string.Empty, "Este email ja esta cadastrado.");
-                return View(usuario);
+                TempData["ErrorMessage"] = "Este email já está cadastrado.";
+                return RedirectToAction("Cadastrar");
             }
+
             _context.Usuario.Add(usuario);
             _context.SaveChanges();
             return RedirectToAction("Confirmacao", "Usuario");

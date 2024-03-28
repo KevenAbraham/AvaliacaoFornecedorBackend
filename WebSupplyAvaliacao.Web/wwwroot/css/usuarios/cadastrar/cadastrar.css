@@ -1,3 +1,13 @@
+.inputArea {
+    display: flex;
+    flex-direction: column;
+}
+
+    .inputArea span {
+        color: red;
+        text-align: center;
+    }
+
 .title {
     margin: 120px auto 0 auto;
     font-size: 32px;
@@ -42,6 +52,7 @@
         color: #fff;
     }
 
+
 .buttons {
     display: flex;
     justify-content: center;
@@ -67,4 +78,48 @@
 
         .buttons button i {
             margin-right: 10px;
+        }
+
+
+.container-alert {
+    position: absolute;
+    top: 40%;
+    left: 58%;
+    transform: translate(-50%, -50%);
+    width: 560px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 30px;
+}
+
+    .container-alert {
+        font-size: 26px;
+        text-weight: 600;
+    }
+
+    .container-alert button {
+        width: 158px;
+        height: 60px;
+        background: var(--btnColor);
+        border-radius: 20px;
+        border: none;
+        color: #fff;
+        font-size: 22px;
+        margin: 20px 0;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+        .container-alert button:hover {
+            transform: scale(1.04);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+            transition: .3s ease;
+        }
+
+        .container-alert button:active {
+            transform: scale(0.9);
         }

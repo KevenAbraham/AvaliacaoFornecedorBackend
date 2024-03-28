@@ -14,18 +14,38 @@
             <div class="label">
                 <label asp-for="Nome"></label>
             </div>
-            <input type="text" asp-for="Nome" placeholder="Nome do usuário">
-            <span asp-validation-for="Nome" class="text-danger"></span>
+            <div class="inputArea">
+                <input type="text" asp-for="Nome" placeholder="Nome do usuário">
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
         </div>
         <div class="input">
             <div class="label">
                 <label asp-for="Email"></label>
             </div>
-            <input type="text" asp-for="Email" placeholder="usuario@email.com">
-            <span asp-validation-for="Nome" class="text-danger"></span>
+            <div class="inputArea">
+                <input type="text" asp-for="Email" placeholder="usuario@email.com">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
         </div>
     </div>
     <div class="buttons">
         <button type="submit"><i class="fas fa-save"></i>Cadastrar</button>
     </div>
 </form>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="container-alert">
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+        <button onclick="reload()" type="button">Confirmar</button>
+    </div>
+
+    <script>
+        function reload() {
+            location.reload();
+        }
+    </script>
+}
