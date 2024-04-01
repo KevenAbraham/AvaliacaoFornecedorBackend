@@ -8,6 +8,21 @@
 
 <h2 class="title">Dados do Usuário</h2>
 <div class="line"></div>
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert success">
+        @TempData["InfoMessage"]
+    </div>
+}
+
+@if(TempData["ErrorMessage"] != null)
+{
+    <div class="alert danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <form asp-controller="Usuario" asp-action="Editar" method="post">
     <div class="box">
         <div class="left">
@@ -44,18 +59,4 @@
     </div>
 </form>
 
-@if (TempData["InfoMessage"] != null)
-{
-<div class="container-alert">
-    <div class="alert alert-danger">
-            @TempData["InfoMessage"]
-    </div>
-    <button onclick="reload()" type="button">Confirmar</button>
-</div>
-
-<script>
-    function reload() {
-        location.reload();
-    }
-</script>
-}
+<script src="/js/site.js"></script>

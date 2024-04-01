@@ -63,9 +63,20 @@ public class UsuarioController : Controller
     [HttpPost]
     public IActionResult Editar(int id, [Bind("ID", "Nome", "Email", "Status")] Usuario usuario)
     {
-        _context.Usuario.Update(usuario);
-        _context.SaveChanges();
+        var emailExiste = _context.Usuario.FirstOrDefault(x => x.Email == usuario.Email && x.ID != id);
 
-        return View(usuario);
+        if (emailExiste != null)
+        {
+            TempData["ErrorMessage"] = "Este email já está cadastrado.";
+            return RedirectToAction("Editar");
+        }
+        else
+        {
+            _context.Usuario.Update(usuario);
+            _context.SaveChanges();
+            TempData["InfoMessage"] = "Usuário alterado com sucesso.";
+            return RedirectToAction("Editar");
+        }
+        //return View(usuario);
     }
 }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.3.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.10" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters.CoreServices" Version="1.2.0" />
@@ -28,10 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WebSupplyAvaliacao.Dados\WebSupplyAvaliacao.Dados.csproj" />
     <ProjectReference Include="..\WebSupplyAvaliacao.Dominio\WebSupplyAvaliacao.Dominio.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repository\" />
   </ItemGroup>
 
 </Project>
