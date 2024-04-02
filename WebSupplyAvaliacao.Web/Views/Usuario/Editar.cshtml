@@ -31,12 +31,14 @@
                     <label for="">Nome:</label>
                 </div>
                 <input asp-for="Nome" type="text" placeholder="Nome do usuário" value="@Model.Nome">
+                <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="input">
                 <div class="label">
                     <label for="">Email:</label>
                 </div>
                 <input type="text" asp-for="Email" placeholder="Email do Usuário" value="@Model.Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="right">

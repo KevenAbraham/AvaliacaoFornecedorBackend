@@ -65,6 +65,13 @@ public class UsuarioController : Controller
     {
         var emailExiste = _context.Usuario.FirstOrDefault(x => x.Email == usuario.Email && x.ID != id);
 
+        if (usuario.Nome == null || usuario.Nome == null)
+        {
+            TempData["ErrorMessage"] = "Os campos não podem ser nulos.";
+            return RedirectToAction("Editar");
+        }
+
+
         if (emailExiste != null)
         {
             TempData["ErrorMessage"] = "Este email já está cadastrado.";
