@@ -23,6 +23,13 @@
     </div>
 }
 
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert attention">
+        @TempData["AlertMessage"]
+    </div>
+}
+
 <form asp-controller="Usuario" asp-action="Editar" method="post">
     <div class="box">
         <div class="left">

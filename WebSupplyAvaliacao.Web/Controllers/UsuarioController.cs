@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebSupplyAvaliacao.Dados.Context;
 using WebSupplyAvaliacao.Dominio.Entidade;
 
@@ -65,25 +66,33 @@ public class UsuarioController : Controller
     {
         var emailExiste = _context.Usuario.FirstOrDefault(x => x.Email == usuario.Email && x.ID != id);
 
-        if (usuario.Nome == null || usuario.Nome == null)
+        var checkUser = _context.Usuario.SingleOrDefault(x => x.ID == id);
+
+        if (usuario.Nome == null || usuario.Email == null)
         {
             TempData["ErrorMessage"] = "Os campos não podem ser nulos.";
             return RedirectToAction("Editar");
         }
 
+        if (usuario.Nome == checkUser.Nome && usuario.Email == checkUser.Email && usuario.Status == checkUser.Status)
+        {
+            TempData["AlertMessage"] = "Essas informações já estão cadastradas.";
+            return RedirectToAction("Editar");
+        }
 
         if (emailExiste != null)
         {
             TempData["ErrorMessage"] = "Este email já está cadastrado.";
             return RedirectToAction("Editar");
-        }
+        } 
         else
         {
+            _context.Entry(checkUser).State = EntityState.Detached;
+
             _context.Usuario.Update(usuario);
             _context.SaveChanges();
             TempData["InfoMessage"] = "Usuário alterado com sucesso.";
             return RedirectToAction("Editar");
         }
-        //return View(usuario);
     }
 }

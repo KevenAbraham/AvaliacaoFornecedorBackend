@@ -59,6 +59,11 @@
     color: #721c24;
 }
 
+.attention {
+    background: #fff3cd;
+    color: #856404;
+}
+
 .box {
     width: 80%;
     border-radius: 20px;
