@@ -16,7 +16,7 @@
     </div>
 }
 
-@if(TempData["ErrorMessage"] != null)
+@if (TempData["ErrorMessage"] != null)
 {
     <div class="alert danger">
         @TempData["ErrorMessage"]
@@ -44,8 +44,10 @@
                 <div class="label">
                     <label for="">Email:</label>
                 </div>
-                <input type="text" asp-for="Email" placeholder="Email do Usuário" value="@Model.Email">
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="inputValidation">
+                    <input type="text" asp-for="Email" placeholder="Email do Usuário" value="@Model.Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
             </div>
         </div>
         <div class="right">

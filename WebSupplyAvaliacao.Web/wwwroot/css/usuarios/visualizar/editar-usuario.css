@@ -97,6 +97,18 @@
         color: #fff;
     }
 
+.inputValidation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputValidation span {
+    color: #f00;
+    text-align: center;
+    margin-left: 20px;
+}
+
 .toggle-wrapper {
     display: flex;
     align-items: center;

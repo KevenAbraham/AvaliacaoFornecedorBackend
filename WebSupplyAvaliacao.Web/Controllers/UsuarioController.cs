@@ -49,7 +49,7 @@ public class UsuarioController : Controller
     [HttpGet]
     public IActionResult Listar()
     {
-        var usuarios = _context.Usuario.ToList();
+        var usuarios = _context.Usuario.OrderByDescending(x => x.ID).ToList();
         return View(usuarios);
     }
 
@@ -85,7 +85,7 @@ public class UsuarioController : Controller
             TempData["ErrorMessage"] = "Este email já está cadastrado.";
             return RedirectToAction("Editar");
         } 
-        else
+        else if(ModelState.IsValid)
         {
             _context.Entry(checkUser).State = EntityState.Detached;
 
@@ -94,5 +94,6 @@ public class UsuarioController : Controller
             TempData["InfoMessage"] = "Usuário alterado com sucesso.";
             return RedirectToAction("Editar");
         }
+        return View(usuario);
     }
 }
