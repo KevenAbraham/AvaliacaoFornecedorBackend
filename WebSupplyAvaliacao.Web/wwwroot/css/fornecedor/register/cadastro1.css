@@ -28,7 +28,7 @@ main {
 .boxContainer {
     margin-top: 20px;
     width: 990px;
-    height: 500px;
+    height: 580px;
     background-color: var(--backgroundActiveItem);
     border-radius: 20px;
 }
@@ -54,6 +54,10 @@ main {
     width: 40%;
 }
 
+.rightBox {
+    width: 40%;
+}
+
 .entryarea {
     position: relative;
     height: 60px;
@@ -62,19 +66,19 @@ main {
     margin: 0 0 30px 0;
 }
 
-.entryarea input {
-    position: absolute;
-    width: 100%;
-    outline: none;
-    font-size: 1.1em;
-    padding: 0 15px;
-    line-height: 60px;
-    border-radius: 10px;
-    border: 2px solid #fff;
-    background-color: transparent;
-    transition: .1s ease;
-    z-index: 111;
-}
+    .entryarea input {
+        position: absolute;
+        width: 100%;
+        outline: none;
+        font-size: 1.1em;
+        padding: 0 15px;
+        line-height: 60px;
+        border-radius: 10px;
+        border: 2px solid #fff;
+        background-color: transparent;
+        transition: .1s ease;
+        z-index: 111;
+    }
 
 .labelline {
     position: absolute;
@@ -92,23 +96,23 @@ main {
     border: 2px solid #fff;
 }
 
-.entryarea input:focus + .labelline,
-.entryarea input:valid + .labelline {
-    color: #fff;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 12px;
-    transform: translate(-15px, -16px) scale(0.88);
-    z-index: 1111;
-}
+    .entryarea input:focus + .labelline,
+    .entryarea input:valid + .labelline {
+        color: #fff;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 12px;
+        transform: translate(-15px, -16px) scale(0.88);
+        z-index: 1111;
+    }
 
 .cpfphone {
     display: flex;
 }
 
-.cpfphone .entryarea:first-child {
-    margin-right: 13px;
-}
+    .cpfphone .entryarea:first-child {
+        margin-right: 13px;
+    }
 
 .lineVertical {
     width: 2px;
@@ -135,10 +139,30 @@ main {
     margin-bottom: 27px;
 }
 
-.checkboxBox label {
+    .checkboxBox label {
+        color: #fff;
+        margin: 0 10px 0 0px;
+    }
+
+.buscarCEP {
+    position: relative;
+    height: 60px;
+    line-height: 60px;
+    width: 100%;
+    margin: 0 0 30px 0;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
     color: #fff;
-    margin: 0 10px 0 5px;
+    font-size: 22px;
+    transition: .2s all;
+    background-color: var(--btnColorMain);
 }
+
+    .buscarCEP:hover {
+        transform: scale(1.05);
+        transition: .2s all;
+    }
 
 .bairronum {
     display: flex;
@@ -155,22 +179,22 @@ main {
     margin-top: 40px;
 }
 
-.buttonNext button {
-    width: 154px;
-    height: 51px;
-    background-color: var(--btnColorMain);
-    font-size: 22px;
-    color: #fff;
-    border-radius: 10px;
-    border: none;
-    transition: .2s ease;
-    cursor: pointer;
-}
+    .buttonNext button {
+        width: 154px;
+        height: 51px;
+        background-color: var(--btnColorMain);
+        font-size: 22px;
+        color: #fff;
+        border-radius: 10px;
+        border: none;
+        transition: .2s ease;
+        cursor: pointer;
+    }
 
-.buttonNext button:hover {
-    transform: scale(1.05);
-    transition: .2s ease;
-}
+        .buttonNext button:hover {
+            transform: scale(1.05);
+            transition: .2s ease;
+        }
 
 .bairronum .entryarea:first-child {
     margin-right: 13px;
@@ -189,6 +213,6 @@ select {
     height: 65px;
 }
 
-select option {
-    color: #000;
-}
+    select option {
+        color: #000;
+    }

@@ -23,6 +23,18 @@
     margin: auto;
 }
 
+.alert {
+    width: 90%;
+    margin: 10px auto;
+    padding: 20px 10px;
+    font-size: 20px;
+}
+
+.danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
 .box {
     width: 80%;
     border-radius: 20px;

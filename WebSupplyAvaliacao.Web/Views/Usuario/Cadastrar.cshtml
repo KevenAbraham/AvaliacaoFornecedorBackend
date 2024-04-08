@@ -8,6 +8,14 @@
 
 <h2 class="title">Cadastrar Usuário</h2>
 <div class="line"></div>
+
+@if(TempData["ErrorMessage"] != null)
+{
+    <div class="alert danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <form asp-controller="Usuario" asp-action="Cadastrar" method="post">
     <div class="box">
         <div class="input">
@@ -33,19 +41,3 @@
         <button type="submit"><i class="fas fa-save"></i>Cadastrar</button>
     </div>
 </form>
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="container-alert">
-        <div class="alert alert-danger">
-            @TempData["ErrorMessage"]
-        </div>
-        <button onclick="reload()" type="button">Confirmar</button>
-    </div>
-
-    <script>
-        function reload() {
-            location.reload();
-        }
-    </script>
-}

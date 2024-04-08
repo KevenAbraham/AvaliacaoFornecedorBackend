@@ -17,6 +17,7 @@ namespace WebSupplyAvaliacao.Dados.Context
         }
 
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
         
     }
 }

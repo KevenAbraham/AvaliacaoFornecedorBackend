@@ -16,7 +16,7 @@ public class Usuario
     [Required(ErrorMessage = "O E-mail é obrigatório.")]
     [StringLength(100)]
     [Display(Name = "E-mail:")]
-    [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "O e-mail precisa ser válido.")] //Funcionou!!
+    [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "O e-mail precisa ser válido.")] 
     public string Email { get; set; }
     public bool Status { get; set; }
 

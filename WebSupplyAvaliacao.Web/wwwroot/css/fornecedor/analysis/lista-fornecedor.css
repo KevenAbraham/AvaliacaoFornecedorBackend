@@ -35,6 +35,13 @@ td a {
     padding: 10px 40px;
     border-radius: 5px;
     transition: .1s ease;
+    border: 1px solid var(--btnColorMain);
+    transition: .2s all;
+}
+
+td a:hover {
+    background-color: var(--btnColorMain);
+    transition: .2s all;
 }
 
 div.dt-container {

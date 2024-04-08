@@ -1,26 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebSupplyAvaliacao.Dados.Context;
 using WebSupplyAvaliacao.Dominio.Entidade;
+using WebSupplyAvaliacao.Web.Models;
 
 namespace WebSupplyAvaliacao.Web.Controllers;
 
 public class UsuarioController : Controller
 {
     private readonly AppDbContext _context;
+    private readonly Validacao _validacao;
 
-    public UsuarioController(AppDbContext context)
+    public UsuarioController(AppDbContext context, Validacao validacao)
     {
         _context = context;
+        _validacao = validacao;
     }
 
-    [HttpGet]
+    [Authorize]
+    [ServiceFilter(typeof(Validacao))]
     public IActionResult Cadastrar()
     {
+        //var user = _validacao.Validator(User.Identity.Name);
+
+        //if(user != null)
+        //{
+        //    return View();
+        //}
         return View();
     }
 
     [HttpPost]
+    [Authorize]
+    [ServiceFilter(typeof(Validacao))]
     public IActionResult Cadastrar(Usuario usuario)
     {
         if (ModelState.IsValid)
@@ -40,20 +53,23 @@ public class UsuarioController : Controller
         return View(usuario);
     }
 
-    [HttpGet]
+    [Authorize]
+    [ServiceFilter(typeof(Validacao))]
     public IActionResult Confirmacao(Usuario usuario)
     {
         return View();
     }
 
-    [HttpGet]
+    [Authorize]
+    [ServiceFilter(typeof(Validacao))]
     public IActionResult Listar()
     {
         var usuarios = _context.Usuario.OrderByDescending(x => x.ID).ToList();
         return View(usuarios);
     }
 
-    [HttpGet]
+    [Authorize]
+    [ServiceFilter(typeof(Validacao))]
     public IActionResult Editar(int id)
     {
         var usuario = _context.Usuario.SingleOrDefault(user => user.ID == id);
@@ -62,7 +78,9 @@ public class UsuarioController : Controller
     }
 
     [HttpPost]
-    public IActionResult Editar(int id, [Bind("ID", "Nome", "Email", "Status")] Usuario usuario)
+    [Authorize]
+    [ServiceFilter(typeof(Validacao))]
+    public IActionResult Editar(int id, Usuario usuario)
     {
         var emailExiste = _context.Usuario.FirstOrDefault(x => x.Email == usuario.Email && x.ID != id);
 
@@ -95,5 +113,10 @@ public class UsuarioController : Controller
             return RedirectToAction("Editar");
         }
         return View(usuario);
+    }
+
+    public IActionResult Negado()
+    {
+        return View();
     }
 }

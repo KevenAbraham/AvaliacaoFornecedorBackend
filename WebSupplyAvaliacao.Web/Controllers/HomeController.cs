@@ -6,6 +6,7 @@ using WebSupplyAvaliacao.Web.Models;
 namespace WebSupplyAvaliacao.Web.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(Validacao))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

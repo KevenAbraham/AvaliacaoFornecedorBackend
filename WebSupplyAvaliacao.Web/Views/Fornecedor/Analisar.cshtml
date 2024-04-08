@@ -1,0 +1,51 @@
+﻿<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/fornecedor/analysis/lista-fornecedor.css">
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <title>Avaliação de Fornecedor</title>
+</head>
+
+
+<h2 class="title">Lista de Fornecedores</h2>
+
+<div class="itemsCentered">
+    <table id="lista-fornecedor">
+        <thead>
+            <tr>
+                <td>CPF/CPNJ</td>
+                <td>Fornecedor</td>
+                <td>Visualização Completa</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>42.364.861/0001-07</td>
+                <td>John Marston</td>
+                <td><a href="#">Ver</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var table = new DataTable('#lista-fornecedor', {
+        language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese-Brasil.json" },
+        lengthMenu: [6], // Define o valor padrão de 6 sem a opção de seleção
+        paging: true,
+        searching: true,
+        ordering: false,
+        language: {
+            lengthMenu: 'Apresentar _MENU_ linhas por página',
+            zeroRecords: 'Não há Registros',
+            info: 'Página _PAGE_ de _PAGES_',
+            infoEmpty: 'Não há Registros',
+            infoFiltered: '(Filtrando de _MAX_ registros)',
+            searchPlaceholder: "Busque o forncedor",
+            search: 'Pesquisar:',
+            paginate: {
+                next: '<i class="fas fa-angle-right"></i>',
+                previous: '<i class="fas fa-angle-left"></i>',
+            },
+        },
+    });
+</script>
