@@ -17,20 +17,20 @@ public class Fornecedor
     public string NomeContato { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, ErrorMessage = "O E-mail deve ter menos de {100} caracteres.")]
+    [StringLength(100, ErrorMessage = "O E-mail deve ter menos de {1} caracteres.")]
     [EmailAddress(ErrorMessage = "Informe um email válido.")]
     [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "O e-mail precisa ser válido.")]
     public string Email { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(14, ErrorMessage = "O CNPJ deve ter {1} caracteres.")]
-    public int CNPJ { get; set; }
+    public string CNPJ { get; set; }
 
     public bool Status { get; set; } = true;
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(9, ErrorMessage = "O número de telefone deve conter menos de {1} caracteres.")]
-    public int Telefone { get; set; }
+    public string Telefone { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O endereço deve ter entre {2} e {1} caracteres.")]
@@ -45,7 +45,7 @@ public class Fornecedor
     public string Numero { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(10, ErrorMessage = "O CEP deve ter menos de {1} caracteres.")]
+    //[StringLength(10, ErrorMessage = "O CEP deve ter menos de {1} caracteres.")]
     public int CEP { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
@@ -62,8 +62,10 @@ public class Fornecedor
 
     public DateTime Data { get; set; } = DateTime.Now;
 
+    [ForeignKey("Usuario")]
     public int UsuarioId { get; set; }
 
-    [ForeignKey("Usuario")]
-    public Usuario Usuario { get; set; }
+    public virtual Usuario Usuario { get; set; }  //pesquisar
+
+    public List<Especializacao> Especializacao { get; set; }
 }

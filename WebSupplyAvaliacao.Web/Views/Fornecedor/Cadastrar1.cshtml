@@ -20,6 +20,10 @@
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="NomeFantasia">
                         <div class="labelline">Nome Fantasia</div>
+                        <div class="entryarea">
+                            <input type="text" required class="inputnumber" asp-for="Cidade">
+                            <div class="labelline">Cidade</div>
+                        </div>
                     </div>
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="NomeContato">
@@ -39,7 +43,7 @@
                         <input type="text" required class="input" asp-for="Email">
                         <div class="labelline">E-mail Corporativo</div>
                     </div>
-                    <p class="descTitle">Caracterização da Pessoa Física</p>
+                    <p class="descTitle">Caracterização do Fornecedor</p>
                     <div class="checkboxBox">
                         <input type="checkbox" name="checkbox" id="checkbox"><label for="">Fabricante</label>
                         <input type="checkbox" name="checkbox" id="checkbox"><label for="">Distribuidora</label>
@@ -67,20 +71,12 @@
                     </div>
                     <div class="bairronum">
                         <div class="entryarea">
-                            <input type="text" required class="inputnumber" asp-for="Numero">
-                            <div class="labelline">Número</div>
-                        </div>
-                        <div class="entryarea">
                             <input type="text" required class="inputnumber" asp-for="Bairro">
                             <div class="labelline">Bairro</div>
                         </div>
 
                     </div>
                     <div class="bairronum">
-                        <div class="entryarea">
-                            <input type="text" required class="inputnumber" asp-for="Numero">
-                            <div class="labelline">Número</div>
-                        </div>
                         <div class="entryarea">
                             <select name="seila" id="seila">
                                 <option value="teste">Estado</option>
@@ -112,6 +108,10 @@
                                 <option value="teste">SE</option>
                                 <option value="teste">TO</option>
                             </select>
+                        </div>
+                        <div class="entryarea">
+                            <input type="text" required class="inputnumber" asp-for="Numero">
+                            <div class="labelline">Número</div>
                         </div>
                     </div>
                 </div>

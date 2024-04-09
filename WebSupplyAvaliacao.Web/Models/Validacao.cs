@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using WebSupplyAvaliacao.Dados.Context;
+using WebSupplyAvaliacao.Dominio.Entidade;
 
 namespace WebSupplyAvaliacao.Web.Models;
 

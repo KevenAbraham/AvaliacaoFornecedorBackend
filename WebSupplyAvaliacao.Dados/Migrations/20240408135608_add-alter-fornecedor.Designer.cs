@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebSupplyAvaliacao.Dados.Context;
 
@@ -11,9 +12,11 @@ using WebSupplyAvaliacao.Dados.Context;
 namespace WebSupplyAvaliacao.Dados.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240408135608_add-alter-fornecedor")]
+    partial class addalterfornecedor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,12 +269,12 @@ namespace WebSupplyAvaliacao.Dados.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CEP")
+                        .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("CNPJ")
-                        .IsRequired()
+                    b.Property<int>("CNPJ")
                         .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Cidade")
                         .IsRequired()
@@ -314,10 +317,9 @@ namespace WebSupplyAvaliacao.Dados.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Telefone")
-                        .IsRequired()
+                    b.Property<int>("Telefone")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("int");
 
                     b.Property<string>("UF")
                         .IsRequired()
