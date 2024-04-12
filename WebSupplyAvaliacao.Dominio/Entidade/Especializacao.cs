@@ -10,5 +10,5 @@ public class Especializacao
     [Required(ErrorMessage = "Precisa definir o tipo de fornecedor")]
     public string Tipo { get; set; }
 
-    public List<Fornecedor> Fornecedor { get; set; }
+    public ICollection<Fornecedor>? Fornecedores { get; set; }
 }

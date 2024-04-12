@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebSupplyAvaliacao.Dados.Context;
 
@@ -11,9 +12,11 @@ using WebSupplyAvaliacao.Dados.Context;
 namespace WebSupplyAvaliacao.Dados.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411130622_add-alter-fornecedorListToICollection")]
+    partial class addalterfornecedorListToICollection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("FornecedoresID");
 
-                    b.ToTable("EspecializacaoFornecedor", (string)null);
+                    b.ToTable("EspecializacaoFornecedor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -249,7 +252,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especializacao", (string)null);
+                    b.ToTable("Especializacao");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Fornecedor", b =>
@@ -332,7 +335,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Fornecedor", (string)null);
+                    b.ToTable("Fornecedor");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Usuario", b =>
@@ -358,7 +361,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Usuario", (string)null);
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("EspecializacaoFornecedor", b =>

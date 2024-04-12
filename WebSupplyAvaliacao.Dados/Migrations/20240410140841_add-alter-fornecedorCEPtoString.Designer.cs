@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebSupplyAvaliacao.Dados.Context;
 
@@ -11,9 +12,11 @@ using WebSupplyAvaliacao.Dados.Context;
 namespace WebSupplyAvaliacao.Dados.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240410140841_add-alter-fornecedorCEPtoString")]
+    partial class addalterfornecedorCEPtoString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,17 +27,17 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
             modelBuilder.Entity("EspecializacaoFornecedor", b =>
                 {
-                    b.Property<int>("EspecializacoesID")
+                    b.Property<int>("EspecializacaoID")
                         .HasColumnType("int");
 
-                    b.Property<int>("FornecedoresID")
+                    b.Property<int>("FornecedorID")
                         .HasColumnType("int");
 
-                    b.HasKey("EspecializacoesID", "FornecedoresID");
+                    b.HasKey("EspecializacaoID", "FornecedorID");
 
-                    b.HasIndex("FornecedoresID");
+                    b.HasIndex("FornecedorID");
 
-                    b.ToTable("EspecializacaoFornecedor", (string)null);
+                    b.ToTable("EspecializacaoFornecedor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -249,7 +252,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especializacao", (string)null);
+                    b.ToTable("Especializacao");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Fornecedor", b =>
@@ -332,7 +335,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Fornecedor", (string)null);
+                    b.ToTable("Fornecedor");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Usuario", b =>
@@ -358,20 +361,20 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Usuario", (string)null);
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("EspecializacaoFornecedor", b =>
                 {
                     b.HasOne("WebSupplyAvaliacao.Dominio.Entidade.Especializacao", null)
                         .WithMany()
-                        .HasForeignKey("EspecializacoesID")
+                        .HasForeignKey("EspecializacaoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebSupplyAvaliacao.Dominio.Entidade.Fornecedor", null)
                         .WithMany()
-                        .HasForeignKey("FornecedoresID")
+                        .HasForeignKey("FornecedorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

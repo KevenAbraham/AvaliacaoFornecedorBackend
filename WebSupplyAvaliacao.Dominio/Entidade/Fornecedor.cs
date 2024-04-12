@@ -23,13 +23,13 @@ public class Fornecedor
     public string Email { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(14, ErrorMessage = "O CNPJ deve ter {1} caracteres.")]
+    [StringLength(20, ErrorMessage = "O CNPJ deve ter {1} caracteres.")]
     public string CNPJ { get; set; }
 
     public bool Status { get; set; } = true;
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(9, ErrorMessage = "O número de telefone deve conter menos de {1} caracteres.")]
+    [StringLength(20, ErrorMessage = "O número de telefone deve conter menos de {1} caracteres.")]
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
@@ -45,27 +45,26 @@ public class Fornecedor
     public string Numero { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    //[StringLength(10, ErrorMessage = "O CEP deve ter menos de {1} caracteres.")]
-    public int CEP { get; set; }
+    [StringLength(20, ErrorMessage = "O CEP deve ter menos de {1} caracteres.")]
+    public string CEP { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(50, ErrorMessage = "O Bairro deve ter menos de {1} caracteres.")]
-    public string Bairro { get; set; } //Faltou na Migration
+    [StringLength(100, ErrorMessage = "O Bairro deve ter menos de {1} caracteres.")]
+    public string Bairro { get; set; } 
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "Cidade deve ter entre {2} e {1} caracteres.")]
     public string Cidade { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(2, ErrorMessage = "O Estado deve ter apenas {1} caracteres.")]
     public string UF { get; set; }
 
     public DateTime Data { get; set; } = DateTime.Now;
 
     [ForeignKey("Usuario")]
-    public int UsuarioId { get; set; }
+    public int? UsuarioId { get; set; }
 
-    public virtual Usuario Usuario { get; set; }  //pesquisar
+    public virtual Usuario? Usuario { get; set; }
 
-    public List<Especializacao> Especializacao { get; set; }
+    public ICollection<Especializacao>? Especializacoes { get; set; }
 }

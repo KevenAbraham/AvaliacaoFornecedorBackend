@@ -3,7 +3,7 @@
 </head>
 
 <div class="userWelcome">
-    <h2>Olá, @User.Claims.ElementAt(2).Value! Bem-vindo(a)!</h2>
+    <h2>Olá, @User.Claims.FirstOrDefault(x => x.Type.ToString() == "name").Value! Bem-vindo(a)!</h2>
 </div>
 
 <div class="grid-container">
@@ -38,7 +38,7 @@
         <p class="desc">Fornecedores 1 <span>☆</span></p>
         <h3 class="number">49</h3>
     </div>
-</div>
+</div> 
 
 <div class="buttonSeeMore">
     <a href="#"><button>Ver mais</button></a>

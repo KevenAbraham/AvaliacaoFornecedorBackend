@@ -11,7 +11,6 @@ namespace WebSupplyAvaliacao.Dados.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
 
         }
@@ -19,6 +18,5 @@ namespace WebSupplyAvaliacao.Dados.Context
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Especializacao> Especializacao { get; set; }
-        
     }
 }
