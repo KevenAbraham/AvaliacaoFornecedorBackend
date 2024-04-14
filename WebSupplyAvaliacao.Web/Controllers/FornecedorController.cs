@@ -51,6 +51,17 @@ public class FornecedorController : Controller
             return RedirectToAction("Cadastrar2", "Fornecedor");
         }
 
+        if (fornecedor.UF == null)
+        {
+            TempData["ErrorMessage"] = "Selecione o estado.";
+            return RedirectToAction("Cadastrar1");
+        }
+
+        if (especializacoesSelecionadas != null)
+        {
+            TempData["ErrorMessage"] = "Caracterização do Fornecedor não pode ser nula.";
+        }
+
         ViewBag.Especializacao = _context.Especializacao.ToList();
         return View(fornecedor);
     }

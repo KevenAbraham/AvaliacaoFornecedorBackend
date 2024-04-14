@@ -36,6 +36,9 @@ public class UsuarioController : Controller
     [ServiceFilter(typeof(Validacao))]
     public IActionResult Cadastrar(Usuario usuario)
     {
+
+
+
         if (ModelState.IsValid)
         {
             var emailExistente = _context.Usuario.Any(x => x.Email == usuario.Email);

@@ -9,51 +9,52 @@ public class Fornecedor
     public int ID { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, MinimumLength = 3, ErrorMessage = "O Nome Fantasia deve ter entre {2} e {1} caracteres.")]
+    [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome fantasia é inválido")]
     public string NomeFantasia { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, MinimumLength = 3, ErrorMessage = "O Nome para Contato deve ter entre {2} e {1} caracteres.")]
+    [StringLength(100, MinimumLength = 3, ErrorMessage = "O Nome para Contato é inválido.")]
     public string NomeContato { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, ErrorMessage = "O E-mail deve ter menos de {1} caracteres.")]
+    [StringLength(100, ErrorMessage = "O E-mail é inválido")]
     [EmailAddress(ErrorMessage = "Informe um email válido.")]
-    [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "O e-mail precisa ser válido.")]
+    [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "O e-mail é inválido.")]
     public string Email { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(20, ErrorMessage = "O CNPJ deve ter {1} caracteres.")]
+    [RegularExpression(@"^[0-9]{14}$", ErrorMessage = "O CNPJ é inválido.")]
+    [StringLength(30, MinimumLength = 14, ErrorMessage = "O CNPJ é inválido.")]
     public string CNPJ { get; set; }
 
     public bool Status { get; set; } = true;
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(20, ErrorMessage = "O número de telefone deve conter menos de {1} caracteres.")]
+    [StringLength(30, MinimumLength = 9, ErrorMessage = "O telefoneX é inválido.")]
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, MinimumLength = 2, ErrorMessage = "O endereço deve ter entre {2} e {1} caracteres.")]
+    [StringLength(100, MinimumLength = 2, ErrorMessage = "O endereço é inválido.")]
     public string Endereco { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, MinimumLength = 3, ErrorMessage = "O complemento deve ter entre {2} e {1} caracteres.")]
+    [StringLength(100, MinimumLength = 3, ErrorMessage = "O complemento é inválido.")]
     public string Complemento { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(10, ErrorMessage = "O numero deve ter conter menos de {1} caracteres.")]
+    [StringLength(10, MinimumLength = 2, ErrorMessage = "O número é inválido.")]
     public string Numero { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(20, ErrorMessage = "O CEP deve ter menos de {1} caracteres.")]
+    [StringLength(20, ErrorMessage = "O CEP é inválido.")]
     public string CEP { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, ErrorMessage = "O Bairro deve ter menos de {1} caracteres.")]
+    [StringLength(100, MinimumLength = 5, ErrorMessage = "O Bairro é inválido.")]
     public string Bairro { get; set; } 
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, MinimumLength = 3, ErrorMessage = "Cidade deve ter entre {2} e {1} caracteres.")]
+    [StringLength(100, MinimumLength = 3, ErrorMessage = "Cidade é inválida.")]
     public string Cidade { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]

@@ -7,6 +7,13 @@
 
 <div class="timeline"></div>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <form asp-controller="Fornecedor" asp-action="Cadastrar1" method="post">
     <div class="centeredItems">
         <div class="boxContainer">
@@ -17,24 +24,29 @@
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="NomeFantasia">
                         <div class="labelline">Nome Fantasia</div>
+                        <span asp-validation-for="NomeFantasia"></span>
                     </div>
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="NomeContato">
                         <div class="labelline">Nome Completo</div>
+                        <span asp-validation-for="NomeContato"></span>
                     </div>
                     <div class="cpfphone">
                         <div class="entryarea">
-                            <input type="search" required class="inputnumber" asp-for="CNPJ">
+                            <input type="text" required class="inputnumber" asp-for="CNPJ">
                             <div class="labelline">CNPJ</div>
+                            <span asp-validation-for="CNPJ"></span>
                         </div>
                         <div class="entryarea">
                             <input type="text" required class="inputnumber" asp-for="Telefone">
                             <div class="labelline">Telefone</div>
+                            <span asp-validation-for="Telefone"></span>
                         </div>
                     </div>
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="Email">
                         <div class="labelline">E-mail Corporativo</div>
+                        <span asp-validation-for="Email"></span>
                     </div>
                     <p class="descTitle">Caracterização do Fornecedor</p>
                     <div class="checkboxBox">
@@ -51,6 +63,7 @@
                         <div class="entryarea">
                             <input type="text" required class="inputnumber" asp-for="CEP">
                             <div class="labelline">CEP</div>
+                            <span asp-validation-for="CEP"></span>
                         </div>
                         <div class="entryarea">
                             <button type="button" class="buscarCEP">Buscar CEP</button>
@@ -59,25 +72,30 @@
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="Endereco">
                         <div class="labelline">Endereço</div>
+                        <span asp-validation-for="Endereco"></span>
                     </div>
                     <div class="entryarea">
                         <input type="text" required class="input" asp-for="Complemento">
                         <div class="labelline">Complemento</div>
+                        <span asp-validation-for="Complemento"></span>
                     </div>
                     <div class="bairronum">
                         <div class="entryarea">
                             <input type="text" required class="inputnumber" asp-for="Numero">
                             <div class="labelline">Número</div>
+                            <span asp-validation-for="Numero"></span>
                         </div>
                         <div class="entryarea">
                             <input type="text" required class="inputnumber" asp-for="Bairro">
                             <div class="labelline">Bairro</div>
+                            <span asp-validation-for="Bairro"></span>
                         </div>
                     </div>
                     <div class="bairronum">
                         <div class="entryarea">
                             <input type="text" required class="inputnumber" asp-for="Cidade">
                             <div class="labelline">Cidade</div>
+                            <span asp-validation-for="Cidade"></span>
                         </div>
                         <div class="entryarea">
                             <select name="UF" asp-for="UF">
@@ -121,3 +139,5 @@
         <button type="submit">Avançar</button>
     </div>
 </form>
+
+<script src="/js/site.js"></script>
