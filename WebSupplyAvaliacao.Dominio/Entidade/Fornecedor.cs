@@ -68,4 +68,5 @@ public class Fornecedor
     public virtual Usuario? Usuario { get; set; }
 
     public ICollection<Especializacao>? Especializacoes { get; set; }
+    public ICollection<Documento>? Documentos { get; set; }
 }

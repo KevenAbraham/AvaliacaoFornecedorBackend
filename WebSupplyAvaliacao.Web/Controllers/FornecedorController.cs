@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using WebSupplyAvaliacao.Dados.Context;
 using WebSupplyAvaliacao.Dominio.Entidade;
 using WebSupplyAvaliacao.Web.Models;
@@ -17,14 +19,14 @@ public class FornecedorController : Controller
         _context = context;
     }
 
-    public IActionResult Cadastrar1()
+    public IActionResult Criar()
     {
         ViewBag.Especializacao = _context.Especializacao.ToList();
         return View();
     }
 
     [HttpPost]
-    public IActionResult Cadastrar1(Fornecedor fornecedor, int[] especializacoesSelecionadas)
+    public IActionResult Criar(Fornecedor fornecedor, int[] especializacoesSelecionadas)
     {
         var userIdentity = User.Identity?.Name;
         var userID = _context.Usuario.FirstOrDefault(x => x.Email == userIdentity)?.ID;
@@ -48,13 +50,13 @@ public class FornecedorController : Controller
 
             _context.Fornecedor.Update(fornecedor);
             _context.SaveChanges();
-            return RedirectToAction("Cadastrar2", "Fornecedor");
+            return RedirectToAction("Documento", "Fornecedor", new { fornecedorId = fornecedor.ID });
         }
 
         if (fornecedor.UF == null)
         {
             TempData["ErrorMessage"] = "Selecione o estado.";
-            return RedirectToAction("Cadastrar1");
+            return RedirectToAction("Criar");
         }
 
         if (especializacoesSelecionadas != null)
@@ -66,12 +68,49 @@ public class FornecedorController : Controller
         return View(fornecedor);
     }
 
-    public IActionResult Cadastrar2()
+    public IActionResult Documento(int fornecedorId)
     {
+        ViewBag.FornecedorId = fornecedorId;
         return View();
     }
 
-    public IActionResult Cadastrar3()
+    [HttpPost]
+    public async Task<IActionResult> Documento(int fornecedorId, List<IFormFile> upload)
+    {
+        if (upload != null && upload.Count > 0)
+        {
+            foreach (var file in upload)
+            {
+                if (file.Length > 0)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(stream);
+
+                        var documento = new Documento
+                        {
+                            FornecedorID = fornecedorId,
+                            NomeDocumento = file.FileName,
+                            Conteudo = stream.ToArray()
+                        };
+
+                        _context.Documento.Add(documento);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Conclusao", "Fornecedor");
+        }
+        else
+        {
+            // Se não houver arquivo enviado, retorne para a mesma view com uma mensagem de erro
+            TempData["ErrorMessage"] = "Nenhum arquivo foi enviado.";
+            ViewBag.FornecedorId = fornecedorId;
+            return View();
+        }
+    }
+
+    public IActionResult Conclusao()
     {
         return View();
     }

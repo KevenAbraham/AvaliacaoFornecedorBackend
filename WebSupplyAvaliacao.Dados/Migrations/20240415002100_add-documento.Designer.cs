@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebSupplyAvaliacao.Dados.Context;
 
@@ -11,9 +12,11 @@ using WebSupplyAvaliacao.Dados.Context;
 namespace WebSupplyAvaliacao.Dados.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240415002100_add-documento")]
+    partial class adddocumento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("FornecedoresID");
 
-                    b.ToTable("EspecializacaoFornecedor", (string)null);
+                    b.ToTable("EspecializacaoFornecedor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -243,9 +246,9 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<byte[]>("Conteudo")
+                    b.Property<string>("Conteudo")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FornecedorID")
                         .HasColumnType("int");
@@ -258,7 +261,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("FornecedorID");
 
-                    b.ToTable("Documento", (string)null);
+                    b.ToTable("Documento");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Especializacao", b =>
@@ -275,7 +278,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especializacao", (string)null);
+                    b.ToTable("Especializacao");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Fornecedor", b =>
@@ -358,7 +361,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Fornecedor", (string)null);
+                    b.ToTable("Fornecedor");
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Usuario", b =>
@@ -384,7 +387,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Usuario", (string)null);
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("EspecializacaoFornecedor", b =>
