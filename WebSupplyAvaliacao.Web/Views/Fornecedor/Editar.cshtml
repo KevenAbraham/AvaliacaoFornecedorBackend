@@ -1,0 +1,218 @@
+﻿@model Fornecedor
+
+<head>
+    <link rel="stylesheet" href="/css/fornecedor/analysis/visualizacao-fornecedor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<form asp-controller="Fornecedor" asp-action="Editar" method="post">
+    <div class="titleBox" style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <h2 class="titleFirst">Dados do Fornecedor</h2>
+        <div class="checkboxBox" style="display: flex; align-items: center; width: 550px; justify-content: space-around;">
+            @foreach (var especializacao in ViewBag.Especializacoes)
+            {
+                <div class="boxEspecializacao">
+                    <input type="checkbox" name="especializacoesSelecionadas[]" value="@especializacao.ID" id="especializacoesSelecionadas" @(ViewBag.EspecializacoesSelecionadas.Contains(especializacao.ID) ? "checked" : "")>
+                    <label value="@especializacao.ID" style="margin-right: 5px; color: #fff; font-size: 22px;">@especializacao.Tipo</label>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="line"></div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["AddDocumento"] != null)
+    {
+        <div class="alert success">
+            @TempData["AddDocumento"]
+        </div>
+    }
+    
+    @if (TempData["EspecEmpty"] != null)
+    {
+        <div class="alert danger">
+            @TempData["EspecEmpty"]
+        </div>
+    }   
+    
+    @if (TempData["DocError"] != null)
+    {
+        <div class="alert danger">
+            @TempData["DocError"]
+        </div>
+    }
+
+    <div class="box">
+        <div class="left">
+            <div class="input">
+                <div class="label">
+                    <label for="">Razão Social:</label>
+                </div>
+                <input asp-for="NomeFantasia" type="text" placeholder="Nome fantasia" value="@Model.NomeFantasia">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">Contato:</label>
+                </div>
+                <input asp-for="NomeContato" type="text" placeholder="Nome para contato" value="@Model.NomeContato">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">E-mail:</label>
+                </div>
+                <input asp-for="Email" type="text" placeholder="E-mail" value="@Model.Email">
+            </div>
+        </div>
+        <div class="right">
+            <div class="input">
+                <div class="label">
+                    <label for="">CNPJ:</label>
+                </div>
+                <input asp-for="CNPJ" type="text" placeholder="CNPJ" id="cnpj" value="@Model.CNPJ">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">Telefone:</label>
+                </div>
+                <input asp-for="Telefone" type="text" id="telefone" placeholder="Telefone" value="@Model.Telefone">
+            </div>
+            <div class="toggle-wrapper">
+                <div class="description">
+                    Status:
+                </div>
+                <label class="switch">
+                    <input asp-for="Status" type="checkbox" class="hidden-toggle" />
+                    <div class="slider">
+                        <div class="button"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="title">Endereço do Fornecedor</h2>
+    <div class="line"></div>
+    <div class="box">
+        <div class="left">
+            <div class="input">
+                <div class="label">
+                    <label for="">CEP:</label>
+                </div>
+                <input type="text" asp-for="CEP" placeholder="CEP" id="cep" value="@Model.CEP">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">Rua:</label>
+                </div>
+                <input asp-for="Endereco" type="text" placeholder="Endereço" value="@Model.Endereco">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">Complemento:</label>
+                </div>
+                <input asp-for="Complemento" type="text" placeholder="Complemento" value="@Model.Complemento">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">Cidade:</label>
+                </div>
+                <input asp-for="Cidade" type="text" placeholder="Cidade" value="@Model.Cidade">
+            </div>
+        </div>
+        <div class="right">
+            <div class="input">
+                <div class="label">
+                    <label for="">Bairro:</label>
+                </div>
+                <input asp-for="Bairro" type="text" placeholder="Bairro" value="@Model.Bairro">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">N°:</label>
+                </div>
+                <input asp-for="Numero" type="text" placeholder="Número" value="@Model.Numero">
+            </div>
+            <div class="input">
+                <div class="label">
+                    <label for="">UF:</label>
+                </div>
+                <input asp-for="UF" type="text" value="@Model.UF" placeholder="Insira a UF">
+            </div>
+        </div>
+    </div>
+
+    <h2 class="title">Documentos do Fornecedor</h2>
+    <div class="line"></div>
+
+    <div class="docClass" style="display: flex; flex-wrap: wrap;">
+        @foreach (var documento in Model.Documentos)
+        {
+            <div class="documents" style="margin-right: 10px;">
+                <p class="doc" onmouseover="showFullDocumentName(this, '@documento.NomeDocumento')" onmouseout="this.title='';">@TruncateString(documento.NomeDocumento, 15)</p>
+                <button class="delete-document" data-document-id="@documento.ID">@* <i class="fas fa-times"></i> *@X</button>
+            </div>
+        }
+    </div>
+
+    @*Função para diminuir o tamanho do nome do documento em exibição.*@
+    @functions {
+        public string TruncateString(string value, int maxLength)
+        {
+            if (string.IsNullOrEmpty(value))
+                return value;
+
+            return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
+        }
+    }
+
+
+    <div class="buttons">
+        <a href="/Fornecedor/Listar"><button type="button"><i class="fas fa-arrow-left"></i>Voltar</button></a>
+        <a href="#"><button type="button"><i class="fas fa-star"></i>Avaliar</button></a>
+        <button><i class="fas fa-save"></i>Salvar</button>
+        <a href="#"><button id="documentoBtn" type="button"><i class="fas fa-file"></i>Documento</button></a>
+    </div>
+
+    <input type="hidden" name="usuarioId" value="@ViewBag.UsuarioID" />
+</form>
+
+<form id="documentoForm" asp-controller="Fornecedor" asp-action="DocumentoEdicao" method="post" enctype="multipart/form-data">
+    <input type="file" name="upload" id="documentoFile" accept=".pdf,.doc,.docx,.txt" style="display: none;" multiple>
+    <input type="hidden" name="fornecedorId" value="@Model.ID">
+</form>
+
+<script src="/js/site.js"></script>
+<script src="/js/mask.js"></script>
+
+<script>
+    //teste FUNCIONOU
+    $(document).ready(function () {
+        $(".delete-document").click(function () {
+            var documentId = $(this).data("document-id");
+            if (confirm("Tem certeza que deseja excluir este documento?")) {
+                $.post("/Fornecedor/ExcluirDocumento/" + documentId, function () {
+                    location.reload();
+                });
+            }
+        });
+
+        //FUNCIONOU MUITOOOOO
+        $("#documentoBtn").click(function () {
+            $("#documentoFile").click();
+        });
+
+        $("#documentoFile").change(function () {
+            $("#documentoForm").submit();
+        });
+    });
+
+    function showFullDocumentName(element, fullName) {
+        element.title = fullName;
+    }
+</script>

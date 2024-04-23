@@ -4,8 +4,14 @@
     <script src="/js/uploader.js"></script>
 </head>
 
-
 <div class="timeline"></div>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
 
 <form asp-controller="Fornecedor" asp-action="Documento" method="post" enctype="multipart/form-data">
     <div class="centeredItems">
@@ -16,18 +22,22 @@
             <div class="wrapper">
                 <div class="box">
                     <div class="input-box">
-                        <input type="file" id="upload" name="upload" accept=".doc,.docx,.pdf" hidden enctype="multipart/form-data" multiple>
+                        <input type="file" hidden
+                            id="upload" name="upload" accept=".doc,.docx,.pdf" enctype="multipart/form-data" multiple>
                         <label for="upload" class="uploadlabel">
                             <span><i class="fas fa-cloud-upload-alt"></i></span>
-                            <p>Click To Upload</p>
+                            <p>Clique para Adicionar o Documento</p>
                         </label>
+                        <!-- Elemento para exibir o contador de arquivos selecionados -->
                     </div>
 
                     <div id="filewrapper">
-                        <h3 class="uploaded">Uploaded Documents</h3>
+                        <div id="documentList" style="display: none"></div>
+                        <span id="fileCounter"></span>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <input type="hidden" name="fornecedorId" value="@ViewBag.FornecedorId" />
@@ -35,3 +45,5 @@
         <button type="submit">Avançar</button>
     </div>
 </form>
+
+<script src="/js/site.js"></script>

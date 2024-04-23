@@ -1,36 +1,30 @@
-window.addEventListener("load", () => {
-    const input = document.getElementById("upload");
-    const filewrapper = document.getElementById("filewrapper");
+document.addEventListener('DOMContentLoaded', function () {
+    // Array para armazenar os documentos selecionados
+    let documentos = [];
 
-    input.addEventListener("change", (e) => {
-        let fileName = e.target.files[0].name;
-        let filetype = e.target.value.split(".").pop();
-        showfilebox(fileName, filetype);
-    })
+    // Elementos do DOM
+    const uploadInput = document.getElementById('upload');
+    const fileCounter = document.getElementById('fileCounter');
+    const documentList = document.getElementById('documentList');
 
-    const showfilebox = (fileName, filetype) => {
-        const showfileboxElem = document.createElement("div");
-        showfileboxElem.classList.add("showfilebox");
-        const leftElem = document.createElement("div");
-        leftElem.classList.add("left");
-        const fileTypeElem = document.createElement("span");
-        fileTypeElem.classList.add("filetype");
-        fileTypeElem.innerHTML = filetype;
-        leftElem.append(fileTypeElem);
-        const filetitleElem = document.createElement("h3");
-        filetitleElem.innerHTML = fileName;
-        leftElem.append(filetitleElem);
-        showfileboxElem.append(leftElem);
-        const rightElem = document.createElement("div");
-        rightElem.classList.add("right");
-        showfileboxElem.append(rightElem);
-        const crossElem = document.createElement("span");
-        crossElem.innerHTML = "&#215;";
-        rightElem.append(crossElem);
-        filewrapper.append(showfileboxElem);
+    // Event listener para quando um arquivo é selecionado
+    uploadInput.addEventListener('change', function () {
+        // Limpa a lista de documentos ao selecionar novos arquivos
+        documentos = [];
+        documentList.innerHTML = '';
 
-        crossElem.addEventListener("click", () => {
-            filewrapper.removeChild(showfileboxElem);
-        })
-    }
-})
+        // Itera sobre os arquivos selecionados
+        for (let i = 0; i < uploadInput.files.length; i++) {
+            // Adiciona cada arquivo ao array de documentos
+            documentos.push(uploadInput.files[i]);
+
+            // Cria um elemento de lista para exibir o nome do arquivo
+            const listItem = document.createElement('div');
+            listItem.textContent = uploadInput.files[i].name;
+            documentList.appendChild(listItem);
+        }
+
+        // Atualiza o contador de arquivos selecionados
+        fileCounter.textContent = `Total de arquivos selecionados: ${uploadInput.files.length}`;
+    });
+});

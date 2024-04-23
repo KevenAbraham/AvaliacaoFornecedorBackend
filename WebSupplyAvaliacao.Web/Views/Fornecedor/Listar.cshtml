@@ -1,4 +1,6 @@
-﻿<head>
+﻿@model List<WebSupplyAvaliacao.Dominio.Entidade.Fornecedor>
+
+<head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/fornecedor/analysis/lista-fornecedor.css">
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
@@ -14,18 +16,40 @@
             <tr>
                 <td>CPF/CPNJ</td>
                 <td>Fornecedor</td>
+                <td>Status</td>
                 <td>Visualização Completa</td>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>42.364.861/0001-07</td>
-                <td>John Marston</td>
-                <td><a href="#">Ver</a></td>
-            </tr>
+                @foreach (var forn in Model)
+                {
+                    <tr>
+                        <td class="cnpj">@forn.CNPJ</td>
+                    <td onmouseover="showFullName(this, '@forn.NomeFantasia')" onmouseout="this.title='';">@TruncateString(@forn.NomeFantasia, 35)</td>
+                        @if (@forn.Status == true)
+                        {
+                            <td>Ativo</td>
+                        }
+                        else
+                        {
+                            <td>Inativo</td>
+                        }
+                        <td><a href="/Fornecedor/Editar/@forn.ID">Ver</a></td>
+                    </tr>
+                }
         </tbody>
     </table>
 </div>
+
+@functions {
+    public string TruncateString(string value, int maxLength)
+    {
+        if (string.IsNullOrEmpty(value))
+            return value;
+
+        return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
+    }
+}
 
 <script>
     var table = new DataTable('#lista-fornecedor', {
@@ -48,4 +72,10 @@
             },
         },
     });
+
+    function showFullName(element, fullName) {
+        element.title = fullName;
+    }
 </script>
+
+<script src="/js/mask.js"></script>

@@ -52,6 +52,14 @@ main {
     font-weight: 600;
 }
 
+#fileCounter {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: #fff;
+    margin-top: 50px;
+}
+
 .uploadlabel {
     position: relative;
     left: 50%;

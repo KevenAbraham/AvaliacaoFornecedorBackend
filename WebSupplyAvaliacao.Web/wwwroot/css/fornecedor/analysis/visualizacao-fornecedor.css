@@ -35,6 +35,28 @@ main {
     display: flex;
 }
 
+.alert {
+    width: 100%;
+    margin: 10px auto;
+    padding: 20px 10px;
+    font-size: 20px;
+}
+
+.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.attention {
+    background: #fff3cd;
+    color: #856404;
+}
+
 .left, .right {
     width: 50%;
 }
@@ -168,6 +190,7 @@ main {
 .buttons {
     display: flex;
     justify-content: center;
+    /*margin-top: 40px;*/
 }
 
     .buttons button {
@@ -191,3 +214,20 @@ main {
         .buttons button i {
             margin-right: 20px;
         }
+
+.delete-document {
+    margin-left: 20px;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+    background: transparent;
+    border: 2px solid var(--borderColor);
+    border-radius: 25%;
+    transiton: .2s all;
+    cursor: pointer;
+}
+
+.delete-document:hover {
+    background: var(--borderColor);
+    transiton: .2s all;
+}

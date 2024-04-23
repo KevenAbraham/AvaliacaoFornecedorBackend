@@ -18,4 +18,6 @@ public class Documento
     public int FornecedorID { get; set; }
 
     public virtual Fornecedor Fornecedor { get; set; }
+
+    public DateTime Data { get; set; } = DateTime.Now;
 }

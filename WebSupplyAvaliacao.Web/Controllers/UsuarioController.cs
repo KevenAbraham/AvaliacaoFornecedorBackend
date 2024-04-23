@@ -36,9 +36,6 @@ public class UsuarioController : Controller
     [ServiceFilter(typeof(Validacao))]
     public IActionResult Cadastrar(Usuario usuario)
     {
-
-
-
         if (ModelState.IsValid)
         {
             var emailExistente = _context.Usuario.Any(x => x.Email == usuario.Email);
@@ -58,7 +55,7 @@ public class UsuarioController : Controller
 
     [Authorize]
     [ServiceFilter(typeof(Validacao))]
-    public IActionResult Confirmacao(Usuario usuario)
+    public IActionResult Confirmacao()
     {
         return View();
     }
@@ -76,7 +73,6 @@ public class UsuarioController : Controller
     public IActionResult Editar(int id)
     {
         var usuario = _context.Usuario.SingleOrDefault(user => user.ID == id);
-
         return View(usuario);
     }
 

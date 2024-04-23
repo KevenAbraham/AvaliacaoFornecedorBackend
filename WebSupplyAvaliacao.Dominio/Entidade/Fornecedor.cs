@@ -10,7 +10,7 @@ public class Fornecedor
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome fantasia é inválido")]
-    public string NomeFantasia { get; set; }
+    public string? NomeFantasia { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "O Nome para Contato é inválido.")]
@@ -37,9 +37,7 @@ public class Fornecedor
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O endereço é inválido.")]
     public string Endereco { get; set; }
 
-    [Required(ErrorMessage = "O campo é obrigatório.")]
-    [StringLength(100, MinimumLength = 3, ErrorMessage = "O complemento é inválido.")]
-    public string Complemento { get; set; }
+    public string? Complemento { get; set; }
 
     [Required(ErrorMessage = "O campo é obrigatório.")]
     [StringLength(10, MinimumLength = 2, ErrorMessage = "O número é inválido.")]
