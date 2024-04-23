@@ -47,6 +47,13 @@
             @TempData["DocError"]
         </div>
     }
+    
+    @if (TempData["CNPJMensagem"] != null)
+    {
+        <div class="alert danger">
+            @TempData["CNPJMensagem"]
+        </div>
+    }
 
     <div class="box">
         <div class="left">

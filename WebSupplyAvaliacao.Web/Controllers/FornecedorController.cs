@@ -227,6 +227,12 @@ public class FornecedorController : Controller
             .Include(f => f.Documentos)
             .FirstOrDefault(f => f.ID == id);
 
+        if (cnpjExistente != null)
+        {
+            TempData["CNPJMensagem"] = "Este CNPJ já está cadastrado";
+            return RedirectToAction("Editar", idForn);
+        }
+        
         if (ModelState.IsValid)
         {
             idForn.UsuarioId = fornecedor.UsuarioId;
