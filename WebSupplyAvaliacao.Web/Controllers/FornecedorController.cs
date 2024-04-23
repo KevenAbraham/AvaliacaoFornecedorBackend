@@ -232,7 +232,22 @@ public class FornecedorController : Controller
             TempData["CNPJMensagem"] = "Este CNPJ já está cadastrado";
             return RedirectToAction("Editar", idForn);
         }
-        
+
+        if (fornecedor.NomeFantasia == null ||
+                fornecedor.NomeContato == null ||
+                fornecedor.Email == null ||
+                fornecedor.CNPJ == null ||
+                fornecedor.Telefone == null ||
+                fornecedor.Endereco == null ||
+                fornecedor.Cidade == null ||
+                fornecedor.Bairro == null ||
+                fornecedor.Numero == null ||
+                fornecedor.UF == null)
+        {
+            TempData["NullMessage"] = "Os campos não podem estar nulos.";
+            return RedirectToAction("Editar", idForn);
+        }
+
         if (ModelState.IsValid)
         {
             idForn.UsuarioId = fornecedor.UsuarioId;
@@ -249,7 +264,6 @@ public class FornecedorController : Controller
             idForn.Bairro = fornecedor.Bairro;
             idForn.Numero = fornecedor.Numero;
             idForn.UF = fornecedor.UF;
-
 
             idForn.Especializacoes.Clear();
 

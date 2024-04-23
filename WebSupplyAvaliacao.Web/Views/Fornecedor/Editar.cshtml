@@ -33,25 +33,32 @@
             @TempData["AddDocumento"]
         </div>
     }
-    
+
     @if (TempData["EspecEmpty"] != null)
     {
         <div class="alert danger">
             @TempData["EspecEmpty"]
         </div>
-    }   
-    
+    }
+
     @if (TempData["DocError"] != null)
     {
         <div class="alert danger">
             @TempData["DocError"]
         </div>
     }
-    
+
     @if (TempData["CNPJMensagem"] != null)
     {
         <div class="alert danger">
             @TempData["CNPJMensagem"]
+        </div>
+    }
+
+    @if (TempData["NullMessage"] != null)
+    {
+        <div class="alert danger">
+            @TempData["NullMessage"]
         </div>
     }
 
