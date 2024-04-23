@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.RegularExpressions;
 using WebSupplyAvaliacao.Dados.Context;
 using WebSupplyAvaliacao.Dominio.Entidade;
 using WebSupplyAvaliacao.Web.Models;
@@ -19,6 +20,50 @@ public class FornecedorController : Controller
     {
         _context = context;
     }
+
+    public bool IsValidCNPJ(string cnpj)
+    {
+        // Remover caracteres não numéricos do CNPJ
+        cnpj = Regex.Replace(cnpj, "[^0-9]", "");
+
+        // Verificar se o CNPJ possui 14 dígitos
+        if (cnpj.Length != 14)
+        {
+            return false;
+        }
+
+        // Calcular os dígitos verificadores
+        int[] multiplicadores1 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] multiplicadores2 = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        string tempCnpj = cnpj.Substring(0, 12);
+        int soma = 0;
+
+        for (int i = 0; i < 12; i++)
+        {
+            soma += int.Parse(tempCnpj[i].ToString()) * multiplicadores1[i];
+        }
+
+        int resto = soma % 11;
+        resto = resto < 2 ? 0 : 11 - resto;
+
+        string digito = resto.ToString();
+        tempCnpj += digito;
+        soma = 0;
+
+        for (int i = 0; i < 13; i++)
+        {
+            soma += int.Parse(tempCnpj[i].ToString()) * multiplicadores2[i];
+        }
+
+        resto = soma % 11;
+        resto = resto < 2 ? 0 : 11 - resto;
+
+        digito += resto.ToString();
+
+        // Verificar se os dígitos calculados correspondem aos dígitos informados
+        return cnpj.EndsWith(digito);
+    }
+
 
     public IActionResult Cadastrar()
     {
@@ -38,6 +83,12 @@ public class FornecedorController : Controller
         if (cnpjForn)
         {
             TempData["CNPJMensagem"] = "Este CNPJ já está cadastrado";
+            return RedirectToAction("Cadastrar");
+        }
+
+        if (!IsValidCNPJ(fornecedor.CNPJ))
+        {
+            TempData["CNPJMensagem"] = "CNPJ inválido.";
             return RedirectToAction("Cadastrar");
         }
 
@@ -207,7 +258,6 @@ public class FornecedorController : Controller
 
         // Passa as especializações para a view
         ViewBag.EspecializacoesSelecionadas = especializacoesSelecionadas;
-
         ViewBag.Especializacoes = _context.Especializacao.ToList();
         return View(forn);
     }
@@ -233,6 +283,12 @@ public class FornecedorController : Controller
             return RedirectToAction("Editar", idForn);
         }
 
+        if (!IsValidCNPJ(fornecedor.CNPJ))
+        {
+            TempData["CNPJMensagem"] = "CNPJ inválido.";
+            return RedirectToAction("Editar", idForn);
+        }
+
         if (fornecedor.NomeFantasia == null ||
                 fornecedor.NomeContato == null ||
                 fornecedor.Email == null ||
@@ -240,6 +296,7 @@ public class FornecedorController : Controller
                 fornecedor.Telefone == null ||
                 fornecedor.Endereco == null ||
                 fornecedor.Cidade == null ||
+                fornecedor.CEP == null ||
                 fornecedor.Bairro == null ||
                 fornecedor.Numero == null ||
                 fornecedor.UF == null)
@@ -288,7 +345,6 @@ public class FornecedorController : Controller
                 }
             }
 
-
             _context.SaveChanges();
             TempData["SuccessMessage"] = "Dados alterados com sucesso";
             return RedirectToAction("Editar", new { id });
@@ -297,7 +353,7 @@ public class FornecedorController : Controller
         // Se houver erros de validação, recarregue a página com os dados fornecidos
         ViewBag.EspecializacoesSelecionadas = idForn.Especializacoes.Select(e => e.ID).ToList();
         ViewBag.Especializacoes = _context.Especializacao.ToList();
-        return View(fornecedor);
+        return View(idForn);
     }
 
 
@@ -311,5 +367,12 @@ public class FornecedorController : Controller
             _context.SaveChanges();
         }
         return RedirectToAction("Editar", "Fornecedor");
+    }
+
+    public IActionResult VisualizarDocumento(int documentoId)
+    {
+        var doc = _context.Documento.FirstOrDefault(x => x.ID == documentoId);
+
+        return File(doc.Conteudo, "application/octet-stream", doc.NomeDocumento);
     }
 }

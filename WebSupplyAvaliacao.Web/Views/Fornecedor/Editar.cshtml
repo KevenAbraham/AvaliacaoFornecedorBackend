@@ -80,7 +80,10 @@
                 <div class="label">
                     <label for="">E-mail:</label>
                 </div>
-                <input asp-for="Email" type="text" placeholder="E-mail" value="@Model.Email">
+                <div class="emailAlert" style="display: flex; flex-direction: column;">
+                    <input asp-for="Email" type="text" placeholder="E-mail" value="@Model.Email">
+                    <span asp-validation-for="Email" style="color: red;" class="text-danger"></span>
+                </div>
             </div>
         </div>
         <div class="right">
@@ -119,24 +122,25 @@
                     <label for="">CEP:</label>
                 </div>
                 <input type="text" asp-for="CEP" placeholder="CEP" id="cep" value="@Model.CEP">
+                @* <button type="button" id="buscarCEP" class="buscarCEP">Buscar CEP</button> *@
             </div>
             <div class="input">
                 <div class="label">
                     <label for="">Rua:</label>
                 </div>
-                <input asp-for="Endereco" type="text" placeholder="Endereço" value="@Model.Endereco">
+                <input asp-for="Endereco" type="text" placeholder="Endereço" id="logradouro" value="@Model.Endereco">
             </div>
             <div class="input">
                 <div class="label">
                     <label for="">Complemento:</label>
                 </div>
-                <input asp-for="Complemento" type="text" placeholder="Complemento" value="@Model.Complemento">
+                <input asp-for="Complemento" type="text" placeholder="Complemento" id="complemento" value="@Model.Complemento">
             </div>
             <div class="input">
                 <div class="label">
                     <label for="">Cidade:</label>
                 </div>
-                <input asp-for="Cidade" type="text" placeholder="Cidade" value="@Model.Cidade">
+                <input asp-for="Cidade" type="text" placeholder="Cidade" id="cidade" value="@Model.Cidade">
             </div>
         </div>
         <div class="right">
@@ -144,19 +148,19 @@
                 <div class="label">
                     <label for="">Bairro:</label>
                 </div>
-                <input asp-for="Bairro" type="text" placeholder="Bairro" value="@Model.Bairro">
+                <input asp-for="Bairro" type="text" placeholder="Bairro" id="bairro" value="@Model.Bairro">
             </div>
             <div class="input">
                 <div class="label">
                     <label for="">N°:</label>
                 </div>
-                <input asp-for="Numero" type="text" placeholder="Número" value="@Model.Numero">
+                <input asp-for="Numero" type="text" placeholder="Número" id="numero" value="@Model.Numero">
             </div>
             <div class="input">
                 <div class="label">
                     <label for="">UF:</label>
                 </div>
-                <input asp-for="UF" type="text" value="@Model.UF" placeholder="Insira a UF">
+                <input asp-for="UF" type="text" value="@Model.UF" id="uf" placeholder="Insira a UF">
             </div>
         </div>
     </div>
@@ -168,8 +172,10 @@
         @foreach (var documento in Model.Documentos)
         {
             <div class="documents" style="margin-right: 10px;">
-                <p class="doc" onmouseover="showFullDocumentName(this, '@documento.NomeDocumento')" onmouseout="this.title='';">@TruncateString(documento.NomeDocumento, 15)</p>
-                <button class="delete-document" data-document-id="@documento.ID">@* <i class="fas fa-times"></i> *@X</button>
+                <a href="/Fornecedor/VisualizarDocumento?documentoId=@documento.ID" style="text-decoration: none;" target="_blank">
+                    <p class="doc" onmouseover="showFullDocumentName(this, '@documento.NomeDocumento')" onmouseout="this.title='';">@TruncateString(documento.NomeDocumento, 15)</p>
+                </a>
+                <button class="delete-document" data-document-id="@documento.ID">X</button>
             </div>
         }
     </div>
@@ -229,4 +235,30 @@
     function showFullDocumentName(element, fullName) {
         element.title = fullName;
     }
+
+    $(document).ready(function () {
+        $('#cep').blur(function () { // Usando o evento blur para detectar quando o usuário sair do campo de CEP
+            var cep = $(this).val(); // Obtém o valor do campo de CEP
+            var url = 'https://servicos.remaza.com.br/api/CEP/' + cep; // Monta a URL da API de consulta de CEP
+
+            $.get(url, function (data) { // Envia a requisição GET para a API de consulta de CEP
+                if (data.ERRO) { // Se a API retornar um erro
+                    $('#erroCep').text("CEP inválido."); // Exibe uma mensagem de erro
+                    $('#erroCep').show();
+                } else { // Se a API retornar os dados do CEP corretamente
+                    $('#erroCep').empty(); // Limpa qualquer mensagem de erro anterior
+                    $('#logradouro').val(data.Logradouro);
+                    $('#numero').val(""); // Limpa o campo número, se houver algum valor anterior
+                    $('#complemento').val(""); // Limpa o campo complemento, se houver algum valor anterior
+                    $('#endereco').val(data.Logradouro); // Preenche o campo de endereço com o logradouro retornado pela API
+                    $('#bairro').val(data.Bairro); // Preenche o campo de bairro com o bairro retornado pela API
+                    $('#cidade').val(data.Cidade); // Preenche o campo de cidade com a cidade retornado pela API
+                    $('#uf').val(data.Estado); // Preenche o campo de UF com o estado retornado pela API
+                }
+            }).fail(function () { // Se a requisição à API falhar
+                $('#erroCep').text("Falha ao buscar CEP"); // Exibe uma mensagem de erro
+            });
+        });
+    });
+
 </script>
