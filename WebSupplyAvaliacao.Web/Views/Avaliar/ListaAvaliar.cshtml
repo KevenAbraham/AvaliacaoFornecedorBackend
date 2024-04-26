@@ -1,42 +1,33 @@
-﻿@model List<WebSupplyAvaliacao.Dominio.Entidade.Fornecedor>
+﻿@model List<Fornecedor>
 
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/fornecedor/analysis/lista-fornecedor.css">
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <title>Avaliação de Fornecedor</title>
 </head>
 
-
-<h2 class="title">Lista de Fornecedores</h2>
+<h2 class="title">Avaliar Fornecedores</h2>
 
 <div class="itemsCentered">
     <table id="lista-fornecedor">
         <thead>
             <tr>
-                <td>CPF/CPNJ</td>
                 <td>Fornecedor</td>
-                <td>Status</td>
-                <td>Visualização Completa</td>
+                <td>Contato</td>
+                <td>Avaliar</td>
             </tr>
         </thead>
         <tbody>
-                @foreach (var forn in Model)
-                {
-                    <tr>
-                        <td class="cnpj">@forn.CNPJ</td>
-                        <td onmouseover="showFullName(this, '@forn.NomeFantasia')" onmouseout="this.title='';">@TruncateString(@forn.NomeFantasia, 35)</td>
-                        @if (@forn.Status == true)
-                        {
-                            <td>Ativo</td>
-                        }
-                        else
-                        {
-                            <td>Inativo</td>
-                        }
-                        <td><a href="/Fornecedor/Editar/@forn.ID">Ver</a></td>
-                    </tr>
-                }
+            @foreach (var forn in Model)
+            {
+                <tr>
+                    <td onmouseover="showFullName(this, '@forn.NomeFantasia')" onmouseout="this.title='';">@TruncateString(@forn.NomeFantasia, 35)</td>
+                    <td>@forn.NomeContato</td>
+                    <td><a href="/Avaliar/AvaliarFornecedor?fornecedorId=@forn.ID"><i class="fas fa-star"></i></a></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
@@ -72,10 +63,4 @@
             },
         },
     });
-
-    function showFullName(element, fullName) {
-        element.title = fullName;
-    }
 </script>
-
-<script src="/js/mask.js"></script>

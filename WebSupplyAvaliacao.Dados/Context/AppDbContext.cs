@@ -12,13 +12,14 @@ namespace WebSupplyAvaliacao.Dados.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
         }
 
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Especializacao> Especializacao { get; set; }
         public DbSet<Documento> Documento { get; set; }
+        public DbSet<Avaliar> Avaliar { get; set; }
+        public DbSet<ServicoAvaliado> ServicoAvaliado { get; set; }
 
     }
 }

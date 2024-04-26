@@ -64,7 +64,6 @@ public class FornecedorController : Controller
         return cnpj.EndsWith(digito);
     }
 
-
     public IActionResult Cadastrar()
     {
         ViewBag.Especializacao = _context.Especializacao.ToList();

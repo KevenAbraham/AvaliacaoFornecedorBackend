@@ -1,0 +1,52 @@
+﻿@model List<ServicoAvaliado>
+
+<head>
+    <link rel="stylesheet" href="/css/avaliar/avaliacao/realizar_avaliacao.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+</head>
+
+<h2 class="title">Avaliar Fornecedor</h2>
+<div class="line"></div>
+
+<div class="content">
+    <h2 class="titleText">Avalie o Fornecedor</h2>
+
+    <h2 class="fornName">@ViewBag.NomeFornecedor</h2>
+    <div class="fornInfo">
+        <p class="fornEmail">@ViewBag.EmailFornecedor</p>
+        <p class="fornContact">Contato: @ViewBag.ContatoFornecedor</p>
+    </div>
+
+    <form asp-controller="Avaliar" asp-action="AvaliarFornecedor" method="post">
+        <p class="avaliadorNome">Avaliador</p>
+        <input type="text" placeholder="Fabio Sérgio Cassadore" class="fornNameInput">
+
+        <p class="choice">O que gostaria de avaliar? *</p>
+        <select name="" id="#">
+            <option value="">Selecione</option>
+            <option value="1">Qualidade de Produto</option>
+            <option value="2">Qualidade de Serviço</option>
+            <option value="3">Tempo de Entrega</option>
+        </select>
+
+        <p class="star">Avalie-o de 1 a 5 estrelas *</p>
+        <div class="stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+        </div>
+
+        <p class="detalhe">Detalhe mais a sua avaliação</p>
+        <textarea cols="30" rows="10" placeholder="Nós queremos saber mais de você"></textarea>
+
+        <div class="buttons">
+            <a href="#"><button class="limparBtn">Limpar</button></a>
+            <a href="/html/avaliar/avaliar/concluir_avaliacao.html"><button class="avaliarBtn">Avaliar</button></a>
+            <a href="/html/avaliar/avaliar/avaliar_fornecedor.html"><button class="voltarBtn">Voltar</button></a>
+        </div>
+    </form>
+</div>
+
+<script src="/js/stars.js"></script>
