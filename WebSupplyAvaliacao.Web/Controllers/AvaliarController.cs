@@ -27,26 +27,44 @@ public class AvaliarController : Controller
 
     public IActionResult AvaliarFornecedor(int fornecedorId)
     {
+        var servicoAvaliado = _context.ServicoAvaliado.ToList();
+
+        var userIdentity = User.Identity?.Name;
+        var userID = _context.Usuario.FirstOrDefault(x => x.Email == userIdentity)?.ID;
+
         var nomeFornecedor = _context.Fornecedor.Where(x => x.ID == fornecedorId).Select(x => x.NomeFantasia).FirstOrDefault();
         var nomeContato = _context.Fornecedor.Where(x => x.ID == fornecedorId).Select(x => x.NomeContato).FirstOrDefault();
         var emailFornecedor = _context.Fornecedor.Where(x => x.ID == fornecedorId).Select(x => x.Email).FirstOrDefault();
 
+        ViewBag.IdFornecedor = fornecedorId;
+        ViewBag.NomeUsuário = userID;
         ViewBag.NomeFornecedor = nomeFornecedor;
         ViewBag.ContatoFornecedor = nomeContato;
         ViewBag.EmailFornecedor = emailFornecedor;
-        return View();
+        return View(servicoAvaliado);
     }
 
     [HttpPost]
-    public IActionResult AvaliarFornecedor()
+    public IActionResult AvaliarFornecedor(int fornecedorId, int servicoAvaliadoId, Avaliar avaliacao)
     {
-        //var nomeFornecedor = _context.Fornecedor.Where(x => x.ID == fornecedorId).Select(x => x.NomeFantasia).FirstOrDefault();
-        //var nomeContato = _context.Fornecedor.Where(x => x.ID == fornecedorId).Select(x => x.NomeContato).FirstOrDefault();
-        //var emailFornecedor = _context.Fornecedor.Where(x => x.ID == fornecedorId).Select(x => x.Email).FirstOrDefault();
+        if (ModelState.IsValid)
+        {
+            var userIdentity = User.Identity?.Name;
+            var userID = _context.Usuario.FirstOrDefault(x => x.Email == userIdentity)?.ID;
 
-        //ViewBag.NomeFornecedor = nomeFornecedor;
-        //ViewBag.ContatoFornecedor = nomeContato;
-        //ViewBag.EmailFornecedor = emailFornecedor;
+            // Preencha as informações da avaliação
+            avaliacao.UsuarioId = userID;
+            avaliacao.FornecedorId = fornecedorId;
+            avaliacao.ServicoAvaliadoId = servicoAvaliadoId;
+
+            // Salve a avaliação no banco de dados
+            _context.Avaliar.Add(avaliacao);
+            _context.SaveChanges();
+
+            // Redirecione para alguma página após salvar a avaliação
+            return RedirectToAction("ConclusaoAvaliacao", "Avaliar");
+        }
+
         return View();
     }
 
