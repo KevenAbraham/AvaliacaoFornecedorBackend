@@ -13,10 +13,9 @@ main {
 .title {
     font-size: 32px;
     color: #fff;
-    margin-top: 100px;
     margin-bottom: 5px;
     width: 90%;
-    margin: 100px auto 5px auto;
+    margin: 70px auto 5px auto;
 
 }
 
@@ -30,9 +29,21 @@ main {
 .content {
     background-color: var(--backgroundActiveItem);
     width: 80%;
-    margin: 50px auto 0 auto;
+    margin: 10px auto 0 auto;
     border-radius: 20px;
     padding: 30px 60px;
+}
+
+.alert {
+    width: 990px;
+    margin: 10px auto;
+    padding: 20px 10px;
+    font-size: 20px;
+}
+
+.danger {
+    background: #f8d7da;
+    color: #721c24;
 }
 
 .titleText {
@@ -71,6 +82,7 @@ main {
     border-radius: 10px;
     padding-left: 10px;
     outline: none;
+    font-size: 20px;
 }
 
 .choice {
@@ -86,6 +98,7 @@ select {
     border-radius: 10px;
     padding-left: 10px;
     background-color: #d9d9d9;
+    font-size: 20px;
 }
 
 .star {

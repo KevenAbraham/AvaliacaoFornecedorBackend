@@ -1,4 +1,7 @@
-﻿<head>
+﻿@model List<Avaliar>
+
+
+<head>
     <link rel="stylesheet" href="/css/avaliar/consulta/historico_avaliacao.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
@@ -10,7 +13,7 @@
 
 <div class="content">
     <h2 class="fornTitle">Fornecedor</h2>
-    <p class="fornName">Nome do Fornecedor</p>
+    <p class="fornName">@ViewBag.NomeFornecedor</p>
 
     <div class="itemsCentered">
         <table id="historico-avaliacao">
@@ -24,13 +27,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                @foreach (var avaliacao in Model)
+                {
+                    <tr>
+                        <td>@avaliacao.Usuario.Nome</td> 
+                        <td>@avaliacao.ServicoAvaliado.Descricao</td> 
+                        <td>@avaliacao.Nota</td> 
+                        <td>@avaliacao.Data</td>
+                        <td><a href="/Avaliar/VisualizarAvaliacao/@avaliacao.ID"><i class="fas fa-eye"></i></a></td>
+                    </tr>
+                }
+                @* <tr>
                     <td>Marcos Consorte</td>
                     <td>Qualidade de Serviço</td>
                     <td>4 Estrelas</td>
                     <td>08/03/2023</td>
-                    <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-                </tr>
+                    <td><a href="/Avaliar/VisualizarAvaliacao"><i class="fas fa-eye"></i></a></td>
+                </tr> *@
             </tbody>
         </table>
     </div>

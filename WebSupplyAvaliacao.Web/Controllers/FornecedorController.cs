@@ -84,7 +84,7 @@ public class FornecedorController : Controller
             TempData["CNPJMensagem"] = "Este CNPJ já está cadastrado";
             return RedirectToAction("Cadastrar");
         }
-
+        
         if (!IsValidCNPJ(fornecedor.CNPJ))
         {
             TempData["CNPJMensagem"] = "CNPJ inválido.";

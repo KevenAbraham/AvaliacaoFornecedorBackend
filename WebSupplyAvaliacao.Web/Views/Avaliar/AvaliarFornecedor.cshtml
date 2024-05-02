@@ -1,4 +1,4 @@
-﻿@model List<ServicoAvaliado>
+﻿@model AvaliarFornecedorViewModel
 
 <head>
     <link rel="stylesheet" href="/css/avaliar/avaliacao/realizar_avaliacao.css">
@@ -8,29 +8,37 @@
 <h2 class="title">Avaliar Fornecedor</h2>
 <div class="line"></div>
 
+@if (TempData["NullMessage"] != null)
+{
+    <div class="alert danger">
+        @TempData["NullMessage"]
+    </div>
+}
+
 <div class="content">
     <h2 class="titleText">Avalie o Fornecedor</h2>
 
-    <h2 class="fornName">@ViewBag.NomeFornecedor</h2>
+    <h2 class="fornName">@Model.Fornecedores.NomeFantasia</h2>
     <div class="fornInfo">
-        <p class="fornEmail">@ViewBag.EmailFornecedor</p>
-        <p class="fornContact">Contato: @ViewBag.ContatoFornecedor</p>
+        <p class="fornEmail">@Model.Fornecedores.Email</p>
+        <p class="fornContact">Contato: @Model.Fornecedores.NomeContato</p>
     </div>
 
     <form asp-controller="Avaliar" asp-action="AvaliarFornecedor" method="post">
-        <p class="avaliadorNome">Avaliador</p>
-        <input type="text" placeholder="Fabio Sérgio Cassadore" class="fornNameInput">
+        <p class="avaliadorNome">Avaliando como:</p>
+        <input type="text" value="@ViewBag.NomeUsuario" class="fornNameInput" readonly>
 
-        <p class="choice">O que gostaria de avaliar? *</p>
+
+        <p class="choice">O que gostaria de avaliar?</p>
         <select name="servicoAvaliadoId" id="servicoAvaliadoId">
             <option value="">Selecione</option>
-            @foreach(var servAvaliado in Model)
+            @foreach (var servAvaliado in Model.ServicosAvaliados)
             {
                 <option value="@servAvaliado.ID">@servAvaliado.Descricao</option>
             }
         </select>
 
-        <p class="star">Avalie-o de 1 a 5 estrelas *</p>
+        <p class="star">Avalie-o de 1 a 5 estrelas</p>
         <div class="stars">
             <input type="hidden" name="Nota" value="0" />
             <i class="fa-solid fa-star" onclick="setStar(1)"></i>
@@ -44,12 +52,12 @@
         <textarea cols="30" rows="10" name="Detalhes" placeholder="Nós queremos saber mais de você"></textarea>
 
         <div class="buttons">
-            <a href="#"><button type="button" class="limparBtn">Limpar</button></a>
+            <a href="#"><button type="button" class="limparBtn" onclick="location.reload()">Limpar</button></a>
             <a><button type="submit" class="avaliarBtn">Avaliar</button></a>
             <a href="/Avaliar/ListaAvaliar"><button type="button" class="voltarBtn">Voltar</button></a>
         </div>
 
-        <input type="hidden" name="fornecedorId" value="@ViewBag.IdFornecedor" />
+        <input type="hidden" name="fornecedorId" value="@Model.Fornecedores.ID" />
     </form>
 </div>
 
@@ -77,3 +85,5 @@
         stars.forEach(star => star.classList.remove('selected'));
     }
 </script>
+
+<script src="/js/site.js"></script>

@@ -1,4 +1,6 @@
-﻿<head>
+﻿@model List<MediaAvaliacaoViewModel>
+
+<head>
     <link rel="stylesheet" href="/css/avaliar/consulta/consulta_avaliacao.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
@@ -49,98 +51,61 @@
     <table id="lista-avaliados">
         <thead>
             <tr>
-                <td>Nome</td>
-                <td>Avaliação</td>
-                <td>Nota</td>
+                <td>Fornecedor</td>
+                <td>Contato</td>
+                <td>Média</td>
                 <td>Data</td>
-                <td>Visualização Completa</td>
+                <td>Ver histórico</td>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr><tr>
-                <td>Marcos Consorte</td>
-                <td>Qualidade de Serviço</td>
-                <td>4 Estrelas</td>
-                <td>08/03/2023</td>
-                <td><a href="/html/avaliar/consulta/visualizacao_avaliacao.html"><i class="fas fa-pen"></i></a></td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td onmouseover="showFullName(this, '@item.Fornecedores[0].NomeFantasia')" onmouseout="this.title='';">@TruncateString(item.Fornecedores[0].NomeFantasia, 35)</td>
+                    <td>@item.Fornecedores[0].NomeContato</td>
+                    <td>@item.MediaAvaliacao</td>
+                    <td>@item.DataUltimaAval</td>
+                    <td><a href="/Avaliar/HistoricoAvaliacao/@item.Fornecedores[0].ID">Ver histórico</a></td>
+                </tr>
+            }
         </tbody>
+
     </table>
 </div>
 
+@functions {
+    public string TruncateString(string value, int maxLength)
+    {
+        if (string.IsNullOrEmpty(value))
+            return value;
+
+        return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
+    }
+}
+
 <script>
-    var table = new DataTable('#lista-avaliados', {
-        language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese-Brasil.json" },
-        lengthMenu: [4], // Define o valor padrão de 6 sem a opção de seleção
-        paging: true,
-        searching: true,
-        ordering: false,
-        language: {
-            lengthMenu: 'Apresentar _MENU_ linhas por página',
-            zeroRecords: 'Não há Registros',
-            info: 'Página _PAGE_ de _PAGES_',
-            infoEmpty: 'Não há Registros',
-            infoFiltered: '(Filtrando de _MAX_ registros)',
-            searchPlaceholder: "Busque o forncedor",
-            search: 'Pesquisar:',
-            paginate: {
-                next: '<i class="fas fa-angle-right"></i>',
-                previous: '<i class="fas fa-angle-left"></i>',
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = new DataTable('#lista-avaliados', {
+            language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese-Brasil.json" },
+            lengthMenu: [4], // Define o valor padrão de 6 sem a opção de seleção
+            paging: true,
+            searching: true,
+            ordering: true,
+            order: [[0, 'desc']],
+            language: {
+                lengthMenu: 'Apresentar _MENU_ linhas por página',
+                zeroRecords: 'Não há Registros',
+                info: 'Página _PAGE_ de _PAGES_',
+                infoEmpty: 'Não há Registros',
+                infoFiltered: '(Filtrando de _MAX_ registros)',
+                searchPlaceholder: "Busque o fornecedor",
+                search: 'Pesquisar:',
+                paginate: {
+                    next: '<i class="fas fa-angle-right"></i>',
+                    previous: '<i class="fas fa-angle-left"></i>',
+                },
             },
-        },
+        });
     });
 </script>
