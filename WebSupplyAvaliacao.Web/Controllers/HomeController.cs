@@ -26,12 +26,63 @@ namespace WebSupplyAvaliacao.Web.Controllers
 
             DateTime dataLimite = DateTime.Today.AddMonths(-1);
             int qtdFornecedoresMonth = _context.Fornecedor
-                .Count(f => f.Data >= dataLimite); //fornecedores cadastrados no ultimo mes
-
+                .Count(f => f.Data >= dataLimite); //fornecedores cadastrados no último mês
             ViewBag.QtdFornecedoresUltimoMes = qtdFornecedoresMonth;
+
+            // Inicializa as contagens de estrelas fora do loop
+            int fornecedores5Estrelas = 0;
+            int fornecedores4Estrelas = 0;
+            int fornecedores3Estrelas = 0;
+            int fornecedores2Estrelas = 0;
+            int fornecedores1Estrela = 0;
+
+            foreach (var fornecedor in _context.Fornecedor.ToList())
+            {
+                // Filtra as avaliações apenas para o fornecedor atual
+                var avaliacoesFornecedor = _context.Avaliar.Where(a => a.FornecedorId == fornecedor.ID).ToList();
+
+                double media = 0;
+                double mediaRound = 0;
+
+                if (avaliacoesFornecedor.Any())
+                {
+                    media = avaliacoesFornecedor.Average(a => a.Nota);
+                    mediaRound = Math.Round(media, 2);
+
+                    if (mediaRound >= 4.5)
+                    {
+                        fornecedores5Estrelas++;
+                    }
+                    else if (mediaRound >= 3.5)
+                    {
+                        fornecedores4Estrelas++;
+                    }
+                    else if (mediaRound >= 2.5)
+                    {
+                        fornecedores3Estrelas++;
+                    }
+                    else if (mediaRound >= 1.5)
+                    {
+                        fornecedores2Estrelas++;
+                    }
+                    else
+                    {
+                        fornecedores1Estrela++;
+                    }
+                }
+            }
+
+            // Define as ViewBag com as contagens de estrelas
+            ViewBag.Forn1Estrela = fornecedores1Estrela;
+            ViewBag.Forn2Estrelas = fornecedores2Estrelas;
+            ViewBag.Forn3Estrelas = fornecedores3Estrelas;
+            ViewBag.Forn4Estrelas = fornecedores4Estrelas;
+            ViewBag.Forn5Estrelas = fornecedores5Estrelas;
 
             return View();
         }
+
+
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

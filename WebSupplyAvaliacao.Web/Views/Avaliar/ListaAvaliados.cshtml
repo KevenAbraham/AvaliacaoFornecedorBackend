@@ -13,34 +13,34 @@
     <div class="grid-container">
         <div class="box gc1">
             <p class="desc">Total de Fornecedores</p>
-            <h3 class="number">1.572</h3>
+            <h3 class="number">@ViewBag.QtdFornecedor</h3>
         </div>
         <div class="box gc1">
             <p class="desc">Cadastrados no mês</p>
-            <h3 class="number">352</h3>
+            <h3 class="number">@ViewBag.QtdFornecedoresUltimoMes</h3>
         </div>
         <div class="box gc1">
             <p class="desc">Fornecedores 5 <span>☆</span></p>
-            <h3 class="number">628</h3>
+            <h3 class="number">@ViewBag.Forn5Estrelas</h3>
         </div>
     </div>
 
     <div class="grid-container2">
         <div class="box gc2">
             <p class="desc">Fornecedores 4 <span>☆</span></p>
-            <h3 class="number">408</h3>
+            <h3 class="number">@ViewBag.Forn4Estrelas</h3>
         </div>
         <div class="box gc2">
             <p class="desc">Fornecedores 3 <span>☆</span></p>
-            <h3 class="number">305</h3>
+            <h3 class="number">@ViewBag.Forn3Estrelas</h3>
         </div>
         <div class="box gc2">
             <p class="desc">Fornecedores 2 <span>☆</span></p>
-            <h3 class="number">182</h3>
+            <h3 class="number">@ViewBag.Forn2Estrelas</h3>
         </div>
         <div class="box gc2">
             <p class="desc">Fornecedores 1 <span>☆</span></p>
-            <h3 class="number">49</h3>
+            <h3 class="number">@ViewBag.Forn1Estrela</h3>
         </div>
     </div>
 </div>
@@ -65,7 +65,14 @@
                     <td onmouseover="showFullName(this, '@item.Fornecedores[0].NomeFantasia')" onmouseout="this.title='';">@TruncateString(item.Fornecedores[0].NomeFantasia, 35)</td>
                     <td>@item.Fornecedores[0].NomeContato</td>
                     <td>@item.MediaAvaliacao</td>
-                    <td>@item.DataUltimaAval</td>
+                    @if (item.DataUltimaAval == null)
+                    {
+                        <td>Fornecedor ainda não foi avaliado.</td>
+                    }
+                    else
+                    {
+                        <td>@item.DataUltimaAval?.ToString("dd/MM/yyyy")</td>
+                    }
                     <td><a href="/Avaliar/HistoricoAvaliacao/@item.Fornecedores[0].ID">Ver histórico</a></td>
                 </tr>
             }

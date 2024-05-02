@@ -117,15 +117,22 @@ public class AvaliarController : Controller
         var fornecedores = _context.Fornecedor.ToList();
         var viewModel = new List<MediaAvaliacaoViewModel>();
 
+        // Inicializa as contagens de estrelas fora do loop
+        int fornecedores5Estrelas = 0;
+        int fornecedores4Estrelas = 0;
+        int fornecedores3Estrelas = 0;
+        int fornecedores2Estrelas = 0;
+        int fornecedores1Estrela = 0;
+
         foreach (var fornecedor in fornecedores)
         {
             // Filtra as avaliações apenas para o fornecedor atual
             var avaliacoesFornecedor = _context.Avaliar.Where(a => a.FornecedorId == fornecedor.ID).ToList();
 
             var ultimaAvaliacao = _context.Avaliar
-            .Where(a => a.FornecedorId == fornecedor.ID)
-            .OrderByDescending(a => a.Data)
-            .FirstOrDefault();
+                .Where(a => a.FornecedorId == fornecedor.ID)
+                .OrderByDescending(a => a.Data)
+                .FirstOrDefault();
 
             // Inicializa a data da última avaliação como null por padrão
             DateTime? dataUltimaAval = null;
@@ -137,19 +144,63 @@ public class AvaliarController : Controller
             }
 
             double media = 0;
+            double mediaRound = 0;
 
             if (avaliacoesFornecedor.Any())
             {
                 media = avaliacoesFornecedor.Average(a => a.Nota);
+                mediaRound = Math.Round(media, 2);
+
+                if (mediaRound >= 4.5)
+                {
+                    fornecedores5Estrelas++;
+                }
+                else if (mediaRound >= 3.5)
+                {
+                    fornecedores4Estrelas++;
+                }
+                else if (mediaRound >= 2.5)
+                {
+                    fornecedores3Estrelas++;
+                }
+                else if (mediaRound >= 1.5)
+                {
+                    fornecedores2Estrelas++;
+                }
+                else
+                {
+                    fornecedores1Estrela++;
+                }
             }
 
             viewModel.Add(new MediaAvaliacaoViewModel
             {
                 Fornecedores = new List<Fornecedor> { fornecedor }, // Define apenas o fornecedor atual
                 DataUltimaAval = dataUltimaAval,
-                MediaAvaliacao = media
+                MediaAvaliacao = mediaRound
             });
         }
+
+        int qtdFornecedores = _context.Fornecedor.Count(); //quantidade total de fornecedores
+        ViewBag.QtdFornecedor = qtdFornecedores;
+
+        // Define a data de início do mês atual
+        DateTime primeiroDiaMesAtual = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+
+        // Define a data de início do próximo mês
+        DateTime primeiroDiaProximoMes = primeiroDiaMesAtual.AddMonths(1);
+
+        int qtdFornecedoresMonth = _context.Fornecedor
+            .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes); // fornecedores cadastrados neste mês
+
+        ViewBag.QtdFornecedoresUltimoMes = qtdFornecedoresMonth;
+
+        // Define as ViewBag fora do loop
+        ViewBag.Forn1Estrela = fornecedores1Estrela;
+        ViewBag.Forn2Estrelas = fornecedores2Estrelas;
+        ViewBag.Forn3Estrelas = fornecedores3Estrelas;
+        ViewBag.Forn4Estrelas = fornecedores4Estrelas;
+        ViewBag.Forn5Estrelas = fornecedores5Estrelas;
 
         return View(viewModel); // Passa a lista de MediaAvaliacaoViewModel para a View
     }
@@ -160,12 +211,8 @@ public class AvaliarController : Controller
     {
         var fornecedor = _context.Fornecedor.FirstOrDefault(x => x.ID == id);
 
-        if (fornecedor == null)
-        {
-            return NotFound(); // Retorna 404 se o fornecedor não for encontrado
-        }
-
         ViewBag.NomeFornecedor = fornecedor.NomeFantasia;
+        ViewBag.FornID = fornecedor.ID;
 
         var avaliacoes = _context.Avaliar
             .Include(a => a.ServicoAvaliado)
@@ -176,8 +223,13 @@ public class AvaliarController : Controller
     }
 
 
-    public IActionResult VisualizarAvaliacao()
+    public IActionResult VisualizarAvaliacao(int id)
     {
-        return View();
+        var avaliacoes = _context.Avaliar
+            .Include(a => a.ServicoAvaliado)
+            .Include(a => a.Usuario)
+            .SingleOrDefault(a => a.ID == id);
+
+        return View(avaliacoes);
     }
 }

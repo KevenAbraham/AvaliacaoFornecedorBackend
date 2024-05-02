@@ -87,7 +87,7 @@
     flex-direction: row-reverse;
 }
 
-.btn button {
+.btn .button {
     background-color: var(--borderColor);
     border: none;
     border-radius: 10px;
@@ -96,9 +96,10 @@
     cursor: pointer;
     transition: 0.2s ease;
     color: #fff;
+    text-decoration: none;
 }
 
-.btn button:hover {
-    transform: scale(1.04);
-    transition: 0.2s ease;
-}
+    .btn .button:hover {
+        transform: scale(1.04);
+        transition: 0.2s ease;
+    } 
