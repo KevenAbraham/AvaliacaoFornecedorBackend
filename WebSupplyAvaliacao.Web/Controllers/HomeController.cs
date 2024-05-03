@@ -24,9 +24,12 @@ namespace WebSupplyAvaliacao.Web.Controllers
             int qtdFornecedores = _context.Fornecedor.Count(); //quantidade total de fornecedores
             ViewBag.QtdFornecedor = qtdFornecedores;
 
-            DateTime dataLimite = DateTime.Today.AddMonths(-1);
+            DateTime primeiroDiaMesAtual = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            DateTime primeiroDiaProximoMes = primeiroDiaMesAtual.AddMonths(1);
+
             int qtdFornecedoresMonth = _context.Fornecedor
-                .Count(f => f.Data >= dataLimite); //fornecedores cadastrados no último mês
+                .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes); // fornecedores cadastrados neste mês
+
             ViewBag.QtdFornecedoresUltimoMes = qtdFornecedoresMonth;
 
             // Inicializa as contagens de estrelas fora do loop
