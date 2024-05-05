@@ -112,7 +112,7 @@ public class AvaliarController : Controller
 
 
 
-    public IActionResult ListaAvaliados()
+    public IActionResult ListaAvaliados([FromQuery] DateTime? filtroData)
     {
         var fornecedores = _context.Fornecedor.ToList();
         var viewModel = new List<MediaAvaliacaoViewModel>();
@@ -128,6 +128,11 @@ public class AvaliarController : Controller
         {
             // Filtra as avaliações apenas para o fornecedor atual
             var avaliacoesFornecedor = _context.Avaliar.Where(a => a.FornecedorId == fornecedor.ID).ToList();
+
+            if (filtroData != null)
+            {
+                avaliacoesFornecedor = _context.Avaliar.Where(x => x.FornecedorId == fornecedor.ID && x.Data <= filtroData).ToList();
+            }
 
             var ultimaAvaliacao = _context.Avaliar
                 .Where(a => a.FornecedorId == fornecedor.ID)
@@ -181,17 +186,15 @@ public class AvaliarController : Controller
             });
         }
 
-        int qtdFornecedores = _context.Fornecedor.Count(); //quantidade total de fornecedores
+        int qtdFornecedores = _context.Fornecedor.Count(); 
         ViewBag.QtdFornecedor = qtdFornecedores;
 
-        // Define a data de início do mês atual
         DateTime primeiroDiaMesAtual = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
 
-        // Define a data de início do próximo mês
         DateTime primeiroDiaProximoMes = primeiroDiaMesAtual.AddMonths(1);
 
         int qtdFornecedoresMonth = _context.Fornecedor
-            .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes); // fornecedores cadastrados neste mês
+            .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes);
 
         ViewBag.QtdFornecedoresUltimoMes = qtdFornecedoresMonth;
 

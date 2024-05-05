@@ -67,6 +67,7 @@ main {
 }
 
 .itemsCentered {
+    position: relative;
     width: 100%;
     margin: auto;
 }
@@ -168,7 +169,7 @@ div.dt-container .dt-paging {
 }
 .title {
     color: #fff;
-    margin: 50px auto 10px auto;
+    margin: 25px auto 10px auto;
     width: 100%;
     font-size: 32px;
     font-weight: 400;
@@ -189,8 +190,31 @@ div.dt-container .dt-paging {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    margin-top: 22px;
+    margin-top: 12px;
 }
+
+.dateSearch {
+    position: absolute;
+    display: flex;
+    /*background: rgb(76, 78, 120);*/
+    margin: 25px 0 0 0;
+    align-items: center;
+}
+
+.filterText {
+    color: #fff;
+    margin-right: 30px;
+}
+
+.inputData {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid var(--backgroundActiveItem);
+    color: #fff;
+    font-size: 18px;
+}
+
 
 .box {
     background-color: var(--backgroundActiveItem);

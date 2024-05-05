@@ -48,6 +48,15 @@
 <div class="line"></div>
 
 <div class="itemsCentered">
+    <form asp-action="ListaAvaliados" asp-controller="Avaliar" method="get">
+        <div class="dateSearch">
+            <p class="filterText">Filtrar por data: </p>
+            <input name="filtroData" type="date" class="inputData" />
+            <input type="submit" class="inputButtonData" value="Bota" style="margin-left: 15px; padding: 10px; border-radius: 5px;
+" />
+        </div>
+    </form>
+
     <table id="lista-avaliados">
         <thead>
             <tr>
@@ -64,15 +73,16 @@
                 <tr>
                     <td onmouseover="showFullName(this, '@item.Fornecedores[0].NomeFantasia')" onmouseout="this.title='';">@TruncateString(item.Fornecedores[0].NomeFantasia, 35)</td>
                     <td>@item.Fornecedores[0].NomeContato</td>
-                    <td>@item.MediaAvaliacao</td>
-                    @if (item.DataUltimaAval == null)
+                    <td>@(item.MediaAvaliacao != 0 ? @item.MediaAvaliacao : "Fornecedor não avaliado")</td> 
+                    <td>@(item.MediaAvaliacao != 0 ? @item.DataUltimaAval?.ToString("dd/MM/yyyy") : "Fornecedor não avaliado")</td> 
+                    @* @if (item.DataUltimaAval == null)
                     {
                         <td>Fornecedor ainda não foi avaliado.</td>
                     }
                     else
                     {
                         <td>@item.DataUltimaAval?.ToString("dd/MM/yyyy")</td>
-                    }
+                    } *@
                     <td><a href="/Avaliar/HistoricoAvaliacao/@item.Fornecedores[0].ID">Ver histórico</a></td>
                 </tr>
             }
