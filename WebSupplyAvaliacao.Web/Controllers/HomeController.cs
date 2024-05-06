@@ -19,7 +19,7 @@ namespace WebSupplyAvaliacao.Web.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() //Mesmo método já está documentado na Controller de Avaliação.
         {
             int qtdFornecedores = _context.Fornecedor.Count(); //quantidade total de fornecedores
             ViewBag.QtdFornecedor = qtdFornecedores;

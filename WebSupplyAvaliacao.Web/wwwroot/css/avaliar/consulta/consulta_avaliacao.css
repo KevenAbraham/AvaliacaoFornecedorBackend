@@ -270,3 +270,20 @@ div.dt-container .dt-paging {
     margin: 20px auto 0 auto; 
     width: 100%;
 }
+
+.inputButtonData {
+    margin-left: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--btnColorMain);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: .2s all;
+    font-size: 18px;
+}
+
+.inputButtonData:hover {
+    transform: scale(1.1);
+    transition: .2s all;
+}
