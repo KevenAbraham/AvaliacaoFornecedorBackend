@@ -143,7 +143,7 @@ public class AvaliarController : Controller
     /// </summary>
     /// <param name="filtroData">Opcional. Uma data para filtrar as avaliações por data.</param>
     /// <returns>Uma IActionResult representando a lista de fornecedores avaliados.</returns>
-    public IActionResult ListaAvaliados([FromQuery] DateTime? filtroData)
+    public IActionResult ListaAvaliados([FromQuery] DateTime? dataInicio, [FromQuery] DateTime? dataFinal)
     {
         // Obtém a lista de todos os fornecedores
         var fornecedores = _context.Fornecedor.ToList();
@@ -157,6 +157,7 @@ public class AvaliarController : Controller
         int fornecedores3Estrelas = 0;
         int fornecedores2Estrelas = 0;
         int fornecedores1Estrela = 0;
+        int totalFornecedores = 0;
 
         // Loop através de todos os fornecedores
         foreach (var fornecedor in fornecedores)
@@ -164,83 +165,58 @@ public class AvaliarController : Controller
             // Filtra as avaliações apenas para o fornecedor atual
             var avaliacoesFornecedor = _context.Avaliar.Where(x => x.FornecedorId == fornecedor.ID).ToList();
 
-            // Aplica o filtro de data, se fornecido
-            if (filtroData != null)
-            {
-                avaliacoesFornecedor = avaliacoesFornecedor.Where(x => x.Data <= filtroData).ToList();
-            }
-
-            // Obtém a última avaliação para o fornecedor atual
-            var ultimaAvaliacao = _context.Avaliar.Where(a => a.FornecedorId == fornecedor.ID).OrderByDescending(a => a.Data).FirstOrDefault();
-
-            // Inicializa a data da última avaliação como null por padrão
-            DateTime? dataUltimaAval = null;
-
-            // Se houver uma última avaliação, define a data
-            if (ultimaAvaliacao != null)
-            {
-                dataUltimaAval = ultimaAvaliacao.Data;
-            }
-
             // Calcula a média das avaliações para o fornecedor atual
             double media = 0;
             double mediaRound = 0;
 
-            if (avaliacoesFornecedor.Any())
+            if (dataInicio != null && dataFinal != null)
             {
-                media = avaliacoesFornecedor.Average(a => a.Nota);
-                mediaRound = Math.Round(media, 2);
-
-                // Incrementa a contagem de fornecedores com base na média de avaliação
-                if (mediaRound >= 4.5)
-                {
-                    fornecedores5Estrelas++;
-                }
-                else if (mediaRound >= 3.5)
-                {
-                    fornecedores4Estrelas++;
-                }
-                else if (mediaRound >= 2.5)
-                {
-                    fornecedores3Estrelas++;
-                }
-                else if (mediaRound >= 1.5)
-                {
-                    fornecedores2Estrelas++;
-                }
-                else
-                {
-                    fornecedores1Estrela++;
-                }
+                avaliacoesFornecedor = avaliacoesFornecedor.Where(x => x.Data >= dataInicio && x.Data.Date <= dataFinal).ToList();
             }
+            
+            if (!avaliacoesFornecedor.Any())
+            {
+                continue; // Pula para o próximo fornecedor se não houver avaliações
+            }
+
+            media = avaliacoesFornecedor.Average(a => a.Nota);
+            mediaRound = Math.Round(media, 2);
+
+            // Incrementa a contagem de fornecedores com base na média de avaliação
+            if (mediaRound >= 4.5)
+            {
+                fornecedores5Estrelas++;
+            }
+            else if (mediaRound >= 3.5)
+            {
+                fornecedores4Estrelas++;
+            }
+            else if (mediaRound >= 2.5)
+            {
+                fornecedores3Estrelas++;
+            }
+            else if (mediaRound >= 1.5)
+            {
+                fornecedores2Estrelas++;
+            }
+            else
+            {
+                fornecedores1Estrela++;
+            }
+
+            //Quantidade total de fornecedores
+            totalFornecedores++;
 
             // Adiciona as informações do fornecedor atual ao ViewModel
             viewModel.Add(new MediaAvaliacaoViewModel
             {
                 Fornecedores = new List<Fornecedor> { fornecedor }, // Define apenas o fornecedor atual
-                DataUltimaAval = dataUltimaAval,
                 MediaAvaliacao = mediaRound
             });
         }
 
-        // Obtém o número total de fornecedores
-        int qtdFornecedores = _context.Fornecedor.Count();
-
         // Define o número total de fornecedores como uma ViewBag para acesso na View
-        ViewBag.QtdFornecedor = qtdFornecedores;
-
-        // Obtém o primeiro dia do mês atual
-        DateTime primeiroDiaMesAtual = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-
-        // Obtém o primeiro dia do próximo mês
-        DateTime primeiroDiaProximoMes = primeiroDiaMesAtual.AddMonths(1);
-
-        // Obtém o número de fornecedores adicionados no mês atual
-        int qtdFornecedoresMonth = _context.Fornecedor
-            .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes);
-
-        // Define o número de fornecedores adicionados no último mês como uma ViewBag para acesso na View
-        ViewBag.QtdFornecedoresUltimoMes = qtdFornecedoresMonth;
+        ViewBag.QtdFornecedor = totalFornecedores;
 
         // Define as ViewBag fora do loop
         ViewBag.Forn1Estrela = fornecedores1Estrela;

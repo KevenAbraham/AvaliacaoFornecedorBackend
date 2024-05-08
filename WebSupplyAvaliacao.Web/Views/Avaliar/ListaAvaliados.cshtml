@@ -16,21 +16,17 @@
             <h3 class="number">@ViewBag.QtdFornecedor</h3>
         </div>
         <div class="box gc1">
-            <p class="desc">Cadastrados no mês</p>
-            <h3 class="number">@ViewBag.QtdFornecedoresUltimoMes</h3>
-        </div>
-        <div class="box gc1">
             <p class="desc">Fornecedores 5 <span>☆</span></p>
             <h3 class="number">@ViewBag.Forn5Estrelas</h3>
+        </div>
+        <div class="box gc1">
+            <p class="desc">Fornecedores 4 <span>☆</span></p>
+            <h3 class="number">@ViewBag.Forn4Estrelas</h3>
         </div>
     </div>
 
     <div class="grid-container2">
-        <div class="box gc2">
-            <p class="desc">Fornecedores 4 <span>☆</span></p>
-            <h3 class="number">@ViewBag.Forn4Estrelas</h3>
-        </div>
-        <div class="box gc2">
+       <div class="box gc2">
             <p class="desc">Fornecedores 3 <span>☆</span></p>
             <h3 class="number">@ViewBag.Forn3Estrelas</h3>
         </div>
@@ -50,8 +46,16 @@
 <div class="itemsCentered">
     <form asp-action="ListaAvaliados" asp-controller="Avaliar" method="get">
         <div class="dateSearch">
-            <p class="filterText">Filtrar por data: </p>
-            <input name="filtroData" type="date" class="inputData" />
+            <div class="dataInicio">
+                <p class="filterText">Data início: </p >
+                <input name="dataInicio" type="date" class="inputData" />
+            </div>
+
+            <div class="dataFinal">
+                <p class="filterText">Data final: </p>
+                <input name="dataFinal" type="date" class="inputData" />
+            </div>
+
             <input type="submit" class="inputButtonData" value="Filtrar" />
         </div>
     </form>
@@ -62,7 +66,6 @@
                 <td>Fornecedor</td>
                 <td>Contato</td>
                 <td>Média</td>
-                <td>Data</td>
                 <td>Ver histórico</td>
             </tr>
         </thead>
@@ -72,16 +75,7 @@
                 <tr>
                     <td onmouseover="showFullName(this, '@item.Fornecedores[0].NomeFantasia')" onmouseout="this.title='';">@TruncateString(item.Fornecedores[0].NomeFantasia, 35)</td>
                     <td>@item.Fornecedores[0].NomeContato</td>
-                    <td>@(item.MediaAvaliacao != 0 ? @item.MediaAvaliacao : "Fornecedor não avaliado")</td> 
-                    <td>@(item.MediaAvaliacao != 0 ? @item.DataUltimaAval?.ToString("dd/MM/yyyy") : "Fornecedor não avaliado")</td> 
-                    @* @if (item.DataUltimaAval == null)
-                    {
-                        <td>Fornecedor ainda não foi avaliado.</td>
-                    }
-                    else
-                    {
-                        <td>@item.DataUltimaAval?.ToString("dd/MM/yyyy")</td>
-                    } *@
+                    <td>@(item.MediaAvaliacao != 0 ? @item.MediaAvaliacao : "Fornecedor não avaliado")</td>
                     <td><a href="/Avaliar/HistoricoAvaliacao/@item.Fornecedores[0].ID">Ver histórico</a></td>
                 </tr>
             }
@@ -108,7 +102,7 @@
             paging: true,
             searching: true,
             ordering: true,
-            order: [[3, 'desc']],
+            order: [[3]],
             language: {
                 lengthMenu: 'Apresentar _MENU_ linhas por página',
                 zeroRecords: 'Não há Registros',
@@ -125,3 +119,5 @@
         });
     });
 </script>
+
+<script src="/js/site.js"></script>
