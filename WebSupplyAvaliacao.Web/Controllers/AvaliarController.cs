@@ -148,6 +148,26 @@ public class AvaliarController : Controller
         // Obtém a lista de todos os fornecedores
         var fornecedores = _context.Fornecedor.ToList();
 
+        // Obtém o mês e o ano atual
+        int mesAtual = DateTime.Now.Month;
+        int anoAtual = DateTime.Now.Year;
+
+        // Define as datas de início e final para o mês atual
+        DateTime dataInicioMes = new DateTime(anoAtual, mesAtual, 1);
+        DateTime dataFinalMes = DateTime.Now;
+
+        ViewBag.MesAtual = dataInicioMes.ToString("yyyy-MM-dd");
+        ViewBag.AnoAtual = dataFinalMes.ToString("yyyy-MM-dd");
+
+        // Se não foram fornecidas datas de início e final, definimos para o mês atual
+        if (dataInicio == null && dataFinal == null)
+        {
+            dataInicio = dataInicioMes;
+            dataFinal = dataFinalMes;
+        }
+
+        var qtdForn = fornecedores.Count();
+
         // Inicializa uma lista de ViewModel para armazenar informações sobre as avaliações
         var viewModel = new List<MediaAvaliacaoViewModel>();
 
@@ -163,7 +183,9 @@ public class AvaliarController : Controller
         foreach (var fornecedor in fornecedores)
         {
             // Filtra as avaliações apenas para o fornecedor atual
-            var avaliacoesFornecedor = _context.Avaliar.Where(x => x.FornecedorId == fornecedor.ID).ToList();
+            var avaliacoesFornecedor = _context.Avaliar
+            .Where(x => x.FornecedorId == fornecedor.ID && x.Data >= dataInicio && x.Data <= dataFinal)
+            .ToList();
 
             // Calcula a média das avaliações para o fornecedor atual
             double media = 0;
@@ -228,7 +250,7 @@ public class AvaliarController : Controller
         return View(viewModel); // Passa a lista de MediaAvaliacaoViewModel para a View
     }
 
-
+    
     /// <summary>
     /// Retorna o histórico de avaliações de um fornecedor específico.
     /// </summary>

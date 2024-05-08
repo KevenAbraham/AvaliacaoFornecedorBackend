@@ -292,7 +292,17 @@ div.dt-container .dt-paging {
     transition: .2s all;
 }
 
+.errorAlert {
+    position: absolute;
+    left: 20%;
+    width: 80%;
+    background-color: #ff0;
+}
+
 .alert {
+    position: relative;
+    left 50%;
+    transform: translate(-50%);
     width: 990px;
     margin: 10px auto;
     padding: 20px 10px;

@@ -12,7 +12,7 @@
 <div class="grid">
     <div class="grid-container">
         <div class="box gc1">
-            <p class="desc">Total de Fornecedores</p>
+            <p class="desc">Fornecedores Avaliados no Mês</p>
             <h3 class="number">@ViewBag.QtdFornecedor</h3>
         </div>
         <div class="box gc1">
@@ -26,7 +26,7 @@
     </div>
 
     <div class="grid-container2">
-       <div class="box gc2">
+        <div class="box gc2">
             <p class="desc">Fornecedores 3 <span>☆</span></p>
             <h3 class="number">@ViewBag.Forn3Estrelas</h3>
         </div>
@@ -47,13 +47,13 @@
     <form asp-action="ListaAvaliados" asp-controller="Avaliar" method="get">
         <div class="dateSearch">
             <div class="dataInicio">
-                <p class="filterText">Data início: </p >
-                <input name="dataInicio" type="date" class="inputData" />
+                <p class="filterText">Data início: </p>
+                <input name="dataInicio" type="date" value="@ViewBag.MesAtual" class="inputData" />
             </div>
 
             <div class="dataFinal">
                 <p class="filterText">Data final: </p>
-                <input name="dataFinal" type="date" class="inputData" />
+                <input name="dataFinal" type="date" class="inputData" value="@ViewBag.AnoAtual" />
             </div>
 
             <input type="submit" class="inputButtonData" value="Filtrar" />
@@ -102,7 +102,7 @@
             paging: true,
             searching: true,
             ordering: true,
-            order: [[3]],
+            order: [[1]],
             language: {
                 lengthMenu: 'Apresentar _MENU_ linhas por página',
                 zeroRecords: 'Não há Registros',
@@ -120,4 +120,3 @@
     });
 </script>
 
-<script src="/js/site.js"></script>
