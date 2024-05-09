@@ -156,17 +156,16 @@ public class AvaliarController : Controller
         DateTime dataInicioMes = new DateTime(anoAtual, mesAtual, 1);
         DateTime dataFinalMes = DateTime.Now;
 
-        ViewBag.MesAtual = dataInicioMes.ToString("yyyy-MM-dd");
-        ViewBag.AnoAtual = dataFinalMes.ToString("yyyy-MM-dd");
 
-        // Se não foram fornecidas datas de início e final, definimos para o mês atual
+        //Se não foram fornecidas datas de início e final, definimos para o mês atual
         if (dataInicio == null && dataFinal == null)
         {
             dataInicio = dataInicioMes;
             dataFinal = dataFinalMes;
         }
 
-        var qtdForn = fornecedores.Count();
+        ViewBag.MesAtual = dataInicio?.ToString("yyyy-MM-dd") ?? dataInicioMes.ToString("yyyy-MM-dd");
+        ViewBag.AnoAtual = dataFinal?.ToString("yyyy-MM-dd") ?? dataFinalMes.ToString("yyyy-MM-dd");
 
         // Inicializa uma lista de ViewModel para armazenar informações sobre as avaliações
         var viewModel = new List<MediaAvaliacaoViewModel>();
