@@ -1,0 +1,118 @@
+﻿<head>
+    <link rel="stylesheet" href="/css/indicadores/indicadores.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<h2 class="title">Indicadores de Avaliação</h2>
+<div class="line"></div>
+
+<div class="content">
+    <div class="row">
+        <div class="entrega">
+            <h2 class="titleBox">Tempo de Entrega</h2>
+            <div id="chart"></div>
+        </div>
+
+        <div class="servico">
+            <h2 class="titleBox">Qualidade de Serviço</h2>
+            <div id="chart2"></div>
+        </div>
+    </div>
+    <div class="produto">
+        <h2 class="titleBox">Qualidade de Produto</h2>
+        <div id="chart3"></div>
+    </div>
+</div>
+
+<div class="buttons">
+    <a href="/html/avaliar/avaliar/avaliar_fornecedor.html"><button><i class="fas fa-star"></i>Avaliar</button></a>
+</div>
+
+<script>
+    var options = {
+        series: [@ViewBag.qps1, @ViewBag.qps2, @ViewBag.qps3, @ViewBag.qps4, @ViewBag.qps5],
+        chart: {
+            width: 380,
+            type: 'pie',
+            foreColor: '#ffffff',
+        },
+        labels: ['1 Estrela', '2 Estrelas', '3 Estrelas', '4 Estrelas', '5 Estrelas'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }],
+        dataLabels: {
+            style: {
+                fontSize: '11px' // Define o tamanho da fonte dos rótulos de dados
+            }
+        },
+    };
+
+    var options2 = {
+        series: [@ViewBag.qss1, @ViewBag.qss2, @ViewBag.qss3, @ViewBag.qss4, @ViewBag.qss5],
+        chart: {
+            width: 380,
+            type: 'pie',
+            foreColor: '#ffffff',
+        },
+        labels: ['1 Estrela', '2 Estrelas', '3 Estrelas', '4 Estrelas', '5 Estrelas'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }],
+        dataLabels: {
+            style: {
+                fontSize: '11px'
+            }
+        },
+    };
+
+    var options3 = {
+        series: [@ViewBag.dts1, @ViewBag.dts2, @ViewBag.dts3, @ViewBag.dts4, @ViewBag.dts5],
+        chart: {
+            width: 380,
+            type: 'pie',
+            foreColor: '#ffffff',
+        },
+        labels: ['1 Estrela', '2 Estrelas', '3 Estrelas', '4 Estrelas', '5 Estrelas'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }],
+        dataLabels: {
+            style: {
+                fontSize: '11px'
+            }
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+    var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+
+    chart.render();
+    chart2.render();
+    chart3.render();
+</script>
