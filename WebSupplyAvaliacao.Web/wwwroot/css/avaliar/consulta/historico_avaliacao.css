@@ -4,7 +4,7 @@
     color: #fff;
     font-size: 32px;
     width: 90%;
-    margin: 100px auto 0 auto;
+    margin: 70px auto 0 auto;
 }
 
 .line {
@@ -15,7 +15,7 @@
 }
 
 .content {
-    margin: 50px auto 0 auto;
+    margin: 10px auto 0 auto;
     width: 90%;
 }
 
@@ -32,7 +32,7 @@
 
 table.dataTable {
     width: 100%;
-    margin: 20px auto;
+    margin: 5px auto;
     border-collapse: collapse;
     font-size: 22px;
 }
