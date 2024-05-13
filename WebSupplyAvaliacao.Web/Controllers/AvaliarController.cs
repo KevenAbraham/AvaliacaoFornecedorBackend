@@ -192,6 +192,8 @@ public class AvaliarController : Controller
 
             if (dataInicio != null && dataFinal != null)
             {
+                dataInicio = dataInicio?.Date;
+                dataFinal = dataFinal?.Date.AddDays(1).AddTicks(-1);
                 avaliacoesFornecedor = avaliacoesFornecedor.Where(x => x.Data >= dataInicio && x.Data.Date <= dataFinal).ToList();
             }
             
