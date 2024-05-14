@@ -105,3 +105,34 @@ main {
     transform: scale(1.01);
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
 }
+
+@media screen and (max-width: 1290px) { 
+    .container {
+        width: 100%;
+        padding: 0 25px;
+    }
+    
+    .userWelcome h2 {
+        font-size: 26px;
+    }
+
+    .grid-container {
+        margin-top: 70px;
+    }
+
+    .gc1 .desc {
+        font-size: 22px;
+    }
+
+    .gc2 .desc {
+        font-size: 18px;
+    }
+
+    .buttonSeeMore button {
+        height: 45px;
+        width: 150px;
+        border-radius: 15px;
+        font-size: 20px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+}
