@@ -20,6 +20,8 @@ namespace WebSupplyAvaliacao.Dados.Context
         public DbSet<Documento> Documento { get; set; }
         public DbSet<Avaliar> Avaliar { get; set; }
         public DbSet<ServicoAvaliado> ServicoAvaliado { get; set; }
+        public DbSet<Auditoria> Auditoria { get; set; }
+        public DbSet<Acao> Acao { get; set; }
 
     }
 }

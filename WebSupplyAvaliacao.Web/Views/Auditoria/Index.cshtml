@@ -1,0 +1,73 @@
+﻿@model List<Auditoria>
+
+<head>
+    <link rel="stylesheet" href="/css/auditoria/auditoria.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+</head>
+
+<h2 class="title">Log de Auditoria</h2>
+
+<div class="itemsCentered">
+    <form asp-action="Index" asp-controller="Auditoria" method="get">
+        <div class="dateSearch">
+            <div class="dataInicio">
+                <p class="filterText">Data início: </p>
+                <input name="dataInicio" type="date" value="@ViewBag.MesAtual" class="inputData" />
+            </div>
+
+            <div class="dataFinal">
+                <p class="filterText">Data final: </p>
+                <input name="dataFinal" type="date" class="inputData" value="@ViewBag.AnoAtual" />
+            </div>
+
+            <input type="submit" class="inputButtonData" value="Filtrar" />
+        </div>
+    </form>
+
+    <table id="lista-auditoria">
+        <thead>
+            <tr>
+                <td>Data</td>
+                <td>Usuário</td>
+                <td>Ação</td>
+                <td>Chave</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var auditoria in Model)
+            {
+                <tr>
+                    <td>@auditoria.Data</td>
+                    <td>@auditoria.UsuarioId</td>
+                    <td>@auditoria.AcaoID</td>
+                    <td>@auditoria.Chave</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var table = new DataTable('#lista-auditoria', {
+        language: { url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese-Brasil.json" },
+        lengthMenu: [6], // Define o valor padrão de 6 sem a opção de seleção
+        paging: true,
+        searching: true,
+        ordering: true,
+        order: [0, 'desc'],
+        language: {
+            lengthMenu: 'Apresentar _MENU_ linhas por página',
+            sEmptyTable: 'Não há Registros',
+            info: 'Página _PAGE_ de _PAGES_',
+            infoEmpty: 'Não há Registros',
+            infoFiltered: '(Filtrando de _MAX_ registros)',
+            searchPlaceholder: "Busque o usuário",
+            search: 'Pesquisar:',
+            paginate: {
+                next: '<i class="fas fa-angle-right"></i>',
+                previous: '<i class="fas fa-angle-left"></i>',
+            },
+        },
+    });
+</script>

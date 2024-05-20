@@ -19,20 +19,19 @@ public class HomeController : Controller
         _context = context; 
     }
 
-    public IActionResult Index() //Mesmo método já está documentado na Controller de Avaliação.
+    public IActionResult Index() 
     {
-        int qtdFornecedores = _context.Fornecedor.Count(); //quantidade total de fornecedores
+        int qtdFornecedores = _context.Fornecedor.Count(); 
         ViewBag.QtdFornecedor = qtdFornecedores;
 
         DateTime primeiroDiaMesAtual = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         DateTime primeiroDiaProximoMes = primeiroDiaMesAtual.AddMonths(1);
 
         int qtdFornecedoresMonth = _context.Fornecedor
-            .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes); // fornecedores cadastrados neste mês
+            .Count(f => f.Data >= primeiroDiaMesAtual && f.Data < primeiroDiaProximoMes);
 
         ViewBag.QtdFornecedoresUltimoMes = qtdFornecedoresMonth;
 
-        // Inicializa as contagens de estrelas fora do loop
         int fornecedores5Estrelas = 0;
         int fornecedores4Estrelas = 0;
         int fornecedores3Estrelas = 0;
@@ -41,7 +40,6 @@ public class HomeController : Controller
 
         foreach (var fornecedor in _context.Fornecedor.ToList())
         {
-            // Filtra as avaliações apenas para o fornecedor atual
             var avaliacoesFornecedor = _context.Avaliar.Where(a => a.FornecedorId == fornecedor.ID).ToList();
 
             double media = 0;
@@ -75,7 +73,6 @@ public class HomeController : Controller
             }
         }
 
-        // Define as ViewBag com as contagens de estrelas
         ViewBag.Forn1Estrela = fornecedores1Estrela;
         ViewBag.Forn2Estrelas = fornecedores2Estrelas;
         ViewBag.Forn3Estrelas = fornecedores3Estrelas;

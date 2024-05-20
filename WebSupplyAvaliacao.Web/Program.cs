@@ -16,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<Validacao>();
 
+builder.Services.AddScoped<AuditoriaService>();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages()

@@ -237,11 +237,11 @@
     }
 
     $(document).ready(function () {
-        $('#cep').blur(function () { // Usando o evento blur para detectar quando o usuário sair do campo de CEP
-            var cep = $(this).val(); // Obtém o valor do campo de CEP
-            var url = 'https://servicos.remaza.com.br/api/CEP/' + cep; // Monta a URL da API de consulta de CEP
+        $('#cep').blur(function () { 
+            var cep = $(this).val(); 
+            var url = 'https://servicos.remaza.com.br/api/CEP/' + cep; 
 
-            $.get(url, function (data) { // Envia a requisição GET para a API de consulta de CEP
+            $.get(url, function (data) { 
                 if (data.ERRO) { // Se a API retornar um erro
                     $('#erroCep').text("CEP inválido."); // Exibe uma mensagem de erro
                     $('#erroCep').show();
