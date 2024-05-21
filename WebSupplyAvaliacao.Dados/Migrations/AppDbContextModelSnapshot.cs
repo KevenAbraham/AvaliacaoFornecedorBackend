@@ -34,7 +34,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("FornecedoresID");
 
-                    b.ToTable("EspecializacaoFornecedor");
+                    b.ToTable("EspecializacaoFornecedor", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -249,7 +249,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Acao");
+                    b.ToTable("Acao", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Auditoria", b =>
@@ -278,7 +278,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Auditoria");
+                    b.ToTable("Auditoria", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Avaliar", b =>
@@ -316,7 +316,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Avaliar");
+                    b.ToTable("Avaliar", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Documento", b =>
@@ -345,7 +345,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("FornecedorID");
 
-                    b.ToTable("Documento");
+                    b.ToTable("Documento", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Especializacao", b =>
@@ -362,7 +362,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especializacao");
+                    b.ToTable("Especializacao", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Fornecedor", b =>
@@ -443,7 +443,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Fornecedor");
+                    b.ToTable("Fornecedor", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.ServicoAvaliado", b =>
@@ -460,7 +460,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("ServicoAvaliado");
+                    b.ToTable("ServicoAvaliado", (string)null);
                 });
 
             modelBuilder.Entity("WebSupplyAvaliacao.Dominio.Entidade.Usuario", b =>
@@ -486,7 +486,7 @@ namespace WebSupplyAvaliacao.Dados.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("EspecializacaoFornecedor", b =>
