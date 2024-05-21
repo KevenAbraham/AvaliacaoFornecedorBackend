@@ -11,7 +11,7 @@ public class Auditoria
     public DateTime Data { get; set; } = DateTime.Now;
 
     [Required]
-    public int Chave { get; set; }
+    public int? Chave { get; set; }
 
     [ForeignKey("Usuario")]
     public int? UsuarioId { get; set; }

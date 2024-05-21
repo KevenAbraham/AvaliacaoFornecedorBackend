@@ -91,8 +91,8 @@ public class AvaliarController : Controller
             _context.Avaliar.Add(avaliacao);
             _context.SaveChanges();
 
-            AcaoEnum idAcao = AcaoEnum.AvaliarFornecedor;
-            _auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
+            //AcaoEnum idAcao = AcaoEnum.AvaliarFornecedor;
+            //_auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
 
             return RedirectToAction("ConclusaoAvaliacao", "Avaliar");
         }

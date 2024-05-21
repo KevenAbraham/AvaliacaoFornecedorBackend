@@ -50,8 +50,8 @@ public class UsuarioController : Controller
             _context.Usuario.Add(usuario);
             _context.SaveChanges();
 
-            AcaoEnum idAcao = AcaoEnum.CriarUsuario;
-            _auditoriaService.RegistrarAuditoria(usuario.ID, (int)userID, idAcao);
+            //AcaoEnum idAcao = AcaoEnum.CriarUsuario;
+            //_auditoriaService.RegistrarAuditoria(usuario.ID, (int)userID, idAcao);
 
             return RedirectToAction("Confirmacao", "Usuario");
         }
@@ -117,8 +117,8 @@ public class UsuarioController : Controller
             _context.Usuario.Update(usuario);
             _context.SaveChanges();
 
-            AcaoEnum idAcao = AcaoEnum.AlterarUsuario;
-            _auditoriaService.RegistrarAuditoria(usuario.ID, (int)userID, idAcao);
+            //AcaoEnum idAcao = AcaoEnum.AlterarUsuario;
+            //_auditoriaService.RegistrarAuditoria(usuario.ID, (int)userID, idAcao);
 
             TempData["InfoMessage"] = "Usuário alterado com sucesso.";
             return RedirectToAction("Editar");

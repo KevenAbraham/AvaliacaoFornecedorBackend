@@ -36,8 +36,8 @@ public class LoginController : Controller
                 return RedirectToAction("Error", "Home");
             }
 
-            _auditoriaService.RegistrarAuditoria(user.ID, user.ID, Models.Enum.AcaoEnum.Login);
-            _logger.LogInformation("Login audit registered for user ID: {UserID}", user.ID);
+            //_auditoriaService.RegistrarAuditoria(user.ID, user.ID, Models.Enum.AcaoEnum.Login);
+            //_logger.LogInformation("Login audit registered for user ID: {UserID}", user.ID);
 
             return View();
         }
@@ -66,9 +66,9 @@ public class LoginController : Controller
                 return RedirectToAction("Error", "Home");
             }
 
-            // Registrar auditoria de logout
-            _auditoriaService.RegistrarAuditoria(user.ID, user.ID, Models.Enum.AcaoEnum.Logout);
-            _logger.LogInformation("Logout audit registered for user ID: {UserID}", user.ID);
+            //// Registrar auditoria de logout
+            //_auditoriaService.RegistrarAuditoria(user.ID, user.ID, Models.Enum.AcaoEnum.Logout);
+            //_logger.LogInformation("Logout audit registered for user ID: {UserID}", user.ID);
 
             // Logout do sistema local
             HttpContext.SignOutAsync().Wait();

@@ -132,9 +132,9 @@ public class FornecedorController : Controller
 
             _context.SaveChanges();
 
-            AcaoEnum idAcao = AcaoEnum.CadastrarFornecedor;
+            //AcaoEnum idAcao = AcaoEnum.CadastrarFornecedor;
 
-            _auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
+            //_auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
 
             return RedirectToAction("Documento", "Fornecedor", new { fornecedorId = fornecedor.ID });
         }
@@ -182,9 +182,9 @@ public class FornecedorController : Controller
                         _context.Documento.Add(documento);
                     }
 
-                    AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
+                    //AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
 
-                    _auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
+                    //_auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
                 }
             }
 
@@ -247,9 +247,9 @@ public class FornecedorController : Controller
                         _context.Documento.Add(documento);
                     }
 
-                    AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
+                    //AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
 
-                    _auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
+                    //_auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
                 }
             }
             await _context.SaveChangesAsync();
@@ -379,8 +379,8 @@ public class FornecedorController : Controller
                 }
             }
 
-            AcaoEnum idAcao = AcaoEnum.AlterarFornecedor;
-            _auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
+            //AcaoEnum idAcao = AcaoEnum.AlterarFornecedor;
+            //_auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
 
             _context.SaveChanges();
             TempData["SuccessMessage"] = "Dados alterados com sucesso";
@@ -407,8 +407,8 @@ public class FornecedorController : Controller
             _context.SaveChanges();
         }
 
-        AcaoEnum idAcao = AcaoEnum.RemoverDocumentoFornecedor;
-        _auditoriaService.RegistrarAuditoria(id, (int)userID, idAcao);
+        //AcaoEnum idAcao = AcaoEnum.RemoverDocumentoFornecedor;
+        //_auditoriaService.RegistrarAuditoria(id, (int)userID, idAcao);
 
         return RedirectToAction("Editar", "Fornecedor");
     }
