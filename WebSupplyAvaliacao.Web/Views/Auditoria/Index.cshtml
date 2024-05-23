@@ -1,4 +1,4 @@
-﻿@model List<Auditoria>
+﻿@model IEnumerable<AuditoriaViewModel>
 
 <head>
     <link rel="stylesheet" href="/css/auditoria/auditoria.css">
@@ -35,13 +35,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var auditoria in Model)
+            @foreach (var log in Model)
             {
                 <tr>
-                    <td>@auditoria.Data</td>
-                    <td>@auditoria.UsuarioId</td>
-                    <td>@auditoria.AcaoID</td>
-                    <td>@auditoria.Chave</td>
+                    <td>@log.Data.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>@log.NomeUsuario</td>
+                    <td>@log.Acao</td>
+                    <td>@log.Chave</td> <!-- Chave será exibido corretamente, mesmo se for null -->
                 </tr>
             }
         </tbody>

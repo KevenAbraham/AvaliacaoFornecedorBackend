@@ -71,7 +71,6 @@ public class FornecedorController : Controller
 
     public IActionResult Cadastrar()
     {
-        // Recupera as especializações disponíveis e passa para a view.
         ViewBag.Especializacao = _context.Especializacao.ToList();
         return View();
     }
@@ -111,7 +110,7 @@ public class FornecedorController : Controller
             fornecedor.Especializacoes = new List<Especializacao>();
 
             _context.SaveChanges();
-            
+
             if (especializacoesSelecionadas == null || especializacoesSelecionadas.Length == 0)
             {
                 TempData["ErrorMessage"] = "Caracterização do Fornecedor não pode ser nula.";
@@ -132,9 +131,8 @@ public class FornecedorController : Controller
 
             _context.SaveChanges();
 
-            //AcaoEnum idAcao = AcaoEnum.CadastrarFornecedor;
-
-            //_auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
+            AcaoEnum idAcao = AcaoEnum.CadastrarFornecedor;
+            _auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
 
             return RedirectToAction("Documento", "Fornecedor", new { fornecedorId = fornecedor.ID });
         }
@@ -182,9 +180,9 @@ public class FornecedorController : Controller
                         _context.Documento.Add(documento);
                     }
 
-                    //AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
+                    AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
 
-                    //_auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
+                    _auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
                 }
             }
 
@@ -246,12 +244,12 @@ public class FornecedorController : Controller
 
                         _context.Documento.Add(documento);
                     }
-
-                    //AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
-
-                    //_auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
                 }
             }
+
+            AcaoEnum idAcao = AcaoEnum.CadastrarDocumentoFornecedor;
+            _auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
+
             await _context.SaveChangesAsync();
 
             ViewBag.FornecedorId = fornecedorId;
@@ -341,48 +339,93 @@ public class FornecedorController : Controller
 
         if (ModelState.IsValid)
         {
-            idForn.UsuarioId = fornecedor.UsuarioId;
-            idForn.NomeFantasia = fornecedor.NomeFantasia;
-            idForn.NomeContato = fornecedor.NomeContato;
-            idForn.Email = fornecedor.Email;
-            idForn.CNPJ = fornecedor.CNPJ;
-            idForn.Telefone = fornecedor.Telefone;
-            idForn.Status = fornecedor.Status;
-            idForn.CEP = fornecedor.CEP;
-            idForn.Endereco = fornecedor.Endereco;
-            idForn.Complemento = fornecedor.Complemento;
-            idForn.Cidade = fornecedor.Cidade;
-            idForn.Bairro = fornecedor.Bairro;
-            idForn.Numero = fornecedor.Numero;
-            idForn.UF = fornecedor.UF;
+            bool dadosAlterados = false;
 
-            idForn.Especializacoes.Clear();
+            if (idForn.NomeFantasia != fornecedor.NomeFantasia)
+            {
+                idForn.NomeFantasia = fornecedor.NomeFantasia;
+                dadosAlterados = true;
+            }
+            if (idForn.NomeContato != fornecedor.NomeContato)
+            {
+                idForn.NomeContato = fornecedor.NomeContato;
+                dadosAlterados = true;
+            }
+            if (idForn.Email != fornecedor.Email)
+            {
+                idForn.Email = fornecedor.Email;
+                dadosAlterados = true;
+            }
+            if (idForn.CNPJ != fornecedor.CNPJ)
+            {
+                idForn.CNPJ = fornecedor.CNPJ;
+                dadosAlterados = true;
+            }
+            if (idForn.Telefone != fornecedor.Telefone)
+            {
+                idForn.Telefone = fornecedor.Telefone;
+                dadosAlterados = true;
+            }
+            if (idForn.Status != fornecedor.Status)
+            {
+                idForn.Status = fornecedor.Status;
+                dadosAlterados = true;
+            }
+            if (idForn.CEP != fornecedor.CEP)
+            {
+                idForn.CEP = fornecedor.CEP;
+                dadosAlterados = true;
+            }
+            if (idForn.Endereco != fornecedor.Endereco)
+            {
+                idForn.Endereco = fornecedor.Endereco;
+                dadosAlterados = true;
+            }
+            if (idForn.Complemento != fornecedor.Complemento)
+            {
+                idForn.Complemento = fornecedor.Complemento;
+                dadosAlterados = true;
+            }
+            if (idForn.Cidade != fornecedor.Cidade)
+            {
+                idForn.Cidade = fornecedor.Cidade;
+                dadosAlterados = true;
+            }
+            if (idForn.Bairro != fornecedor.Bairro)
+            {
+                idForn.Bairro = fornecedor.Bairro;
+                dadosAlterados = true;
+            }
+            if (idForn.Numero != fornecedor.Numero)
+            {
+                idForn.Numero = fornecedor.Numero;
+                dadosAlterados = true;
+            }
+            if (idForn.UF != fornecedor.UF)
+            {
+                idForn.UF = fornecedor.UF;
+                dadosAlterados = true;
+            }
 
             if (especializacoesSelecionadas != null)
             {
                 var especializacoes = _context.Especializacao.Where(e => especializacoesSelecionadas.Contains(e.ID)).ToList();
 
+                idForn.Especializacoes.Clear();
                 foreach (var especializacao in especializacoes)
                 {
-                    if (!idForn.Especializacoes.Any(e => e.ID == especializacao.ID))
-                    {
-                        idForn.Especializacoes.Add(especializacao);
-                    }
-                }
-
-                if (especializacoes.IsNullOrEmpty())
-                {
-                    TempData["EspecEmpty"] = "A especialização não pode ser nula.";
-                    ViewBag.EspecializacoesSelecionadas = idForn.Especializacoes.Select(e => e.ID).ToList();
-                    ViewBag.Especializacoes = _context.Especializacao.ToList();
-                    return View("Editar", idForn);
+                    idForn.Especializacoes.Add(especializacao);
                 }
             }
 
-            //AcaoEnum idAcao = AcaoEnum.AlterarFornecedor;
-            //_auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);
+            if (dadosAlterados)
+            {
+                _context.SaveChanges();
 
-            _context.SaveChanges();
+                AcaoEnum idAcao = AcaoEnum.AlterarFornecedor;
+                _auditoriaService.RegistrarAuditoria(fornecedor.ID, (int)userID, idAcao);    
+            }
+
             TempData["SuccessMessage"] = "Dados alterados com sucesso";
             return RedirectToAction("Editar", new { id });
         }
@@ -403,12 +446,15 @@ public class FornecedorController : Controller
 
         if (documento != null)
         {
+            var fornecedorId = documento.FornecedorID;
+
             _context.Documento.Remove(documento);
             _context.SaveChanges();
+
+            AcaoEnum idAcao = AcaoEnum.RemoverDocumentoFornecedor;
+            _auditoriaService.RegistrarAuditoria(fornecedorId, (int)userID, idAcao);
         }
 
-        //AcaoEnum idAcao = AcaoEnum.RemoverDocumentoFornecedor;
-        //_auditoriaService.RegistrarAuditoria(id, (int)userID, idAcao);
 
         return RedirectToAction("Editar", "Fornecedor");
     }

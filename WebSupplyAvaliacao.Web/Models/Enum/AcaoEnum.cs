@@ -2,7 +2,6 @@
 
 public enum AcaoEnum
 {
-    Login,
     CadastrarFornecedor,
     CadastrarDocumentoFornecedor,
     RemoverDocumentoFornecedor,
@@ -10,5 +9,4 @@ public enum AcaoEnum
     AvaliarFornecedor,
     CriarUsuario,
     AlterarUsuario,
-    Logout
 }

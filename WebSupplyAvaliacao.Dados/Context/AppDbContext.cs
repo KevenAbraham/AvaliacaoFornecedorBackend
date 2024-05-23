@@ -11,6 +11,11 @@ namespace WebSupplyAvaliacao.Dados.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Documento>()
+            .HasOne(d => d.Fornecedor)
+            .WithMany(f => f.Documentos)
+            .HasForeignKey(d => d.FornecedorID);
+
             base.OnModelCreating(modelBuilder);
         }
 
